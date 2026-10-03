@@ -1,0 +1,587 @@
+[
+  {
+    "id": "mem:1791013475017",
+    "kind": "task",
+    "content": "Build anime-themed INR finance tracker: Next.js, Firebase, PWA, mobile-first",
+    "tags": [
+      "project"
+    ],
+    "files": [],
+    "file_path": "",
+    "symbol_id": "",
+    "symbol_hash": "",
+    "created_at": "2026-10-03T07:44:35.009469+00:00",
+    "created_epoch": 1791013475,
+    "updated_at": "2026-10-03T07:44:35.009469+00:00",
+    "stale": false,
+    "stale_reason": "",
+    "observed_queries": [],
+    "evidence": {}
+  },
+  {
+    "id": "mem:1791018223990",
+    "kind": "decision",
+    "content": "Built Kakeibo finance tracker; switched Firebase to Neon Postgres + single-password auth with offline op queue",
+    "tags": [
+      "built",
+      "kakeibo",
+      "finance",
+      "tracker",
+      "switched",
+      "firebase",
+      "neon",
+      "postgres"
+    ],
+    "files": [
+      "src/lib/data.tsx",
+      "src/lib/ops.ts",
+      "src/lib/server/db.ts",
+      "src/lib/server/session.ts",
+      "src/lib/finance.ts",
+      "src/lib/seed.ts",
+      "src/app/api/data/route.ts",
+      "src/app/api/mutate/route.ts",
+      "src/app/api/login/route.ts",
+      "src/components/Shell.tsx",
+      "src/app/page.tsx",
+      "src/app/plan/page.tsx",
+      "src/app/settings/page.tsx",
+      "README.md"
+    ],
+    "file_path": "src/lib/data.tsx",
+    "symbol_id": "",
+    "symbol_hash": "",
+    "created_at": "2026-10-03T09:03:43.993999+00:00",
+    "created_epoch": 1791018223,
+    "updated_at": "2026-10-03T09:03:43.994038+00:00",
+    "stale": false,
+    "stale_reason": "",
+    "observed_queries": [],
+    "evidence": {
+      "window_sec": 120,
+      "recent_action_kinds": [],
+      "recent_queries": []
+    }
+  },
+  {
+    "kind": "next",
+    "content": "User must set APP_PASSWORD in .env.local and deploy to Vercel.",
+    "tags": [
+      "deploy"
+    ],
+    "files": [
+      ".env.local",
+      "README.md"
+    ],
+    "created_at": "2026-10-03T09:03:44.133545+00:00",
+    "created_epoch": 1791018224
+  },
+  {
+    "id": "mem:1791018224065",
+    "kind": "decision",
+    "content": "Data in Neon Postgres; auth is single APP_PASSWORD cookie; no Firebase.",
+    "tags": [
+      "architecture"
+    ],
+    "files": [
+      "src/lib/server/db.ts",
+      "src/lib/server/session.ts",
+      "src/lib/data.tsx"
+    ],
+    "file_path": "src/lib/server/db.ts",
+    "symbol_id": "",
+    "symbol_hash": "",
+    "created_at": "2026-10-03T09:03:44.061662+00:00",
+    "created_epoch": 1791018224,
+    "updated_at": "2026-10-03T09:03:44.061662+00:00",
+    "stale": false,
+    "stale_reason": "",
+    "observed_queries": [],
+    "evidence": {}
+  },
+  {
+    "id": "mem:1791018224023",
+    "kind": "edit_observation",
+    "content": "Edited during active session",
+    "tags": [
+      "built",
+      "kakeibo",
+      "finance",
+      "tracker",
+      "switched",
+      "firebase",
+      "neon",
+      "postgres"
+    ],
+    "files": [
+      "src/app/settings/page.tsx"
+    ],
+    "file_path": "src/app/settings/page.tsx",
+    "symbol_id": "",
+    "symbol_hash": "",
+    "created_at": "2026-10-03T09:03:44.022157+00:00",
+    "created_epoch": 1791018224,
+    "updated_at": "2026-10-03T09:03:44.022989+00:00",
+    "stale": false,
+    "stale_reason": "",
+    "observed_queries": [],
+    "evidence": {
+      "source": "graph_register_edit",
+      "recent_action_kinds": [],
+      "recent_queries": [],
+      "edited": true
+    }
+  },
+  {
+    "id": "mem:1791018224018",
+    "kind": "edit_observation",
+    "content": "Edited during active session",
+    "tags": [
+      "built",
+      "kakeibo",
+      "finance",
+      "tracker",
+      "switched",
+      "firebase",
+      "neon",
+      "postgres"
+    ],
+    "files": [
+      "src/app/page.tsx"
+    ],
+    "file_path": "src/app/page.tsx",
+    "symbol_id": "",
+    "symbol_hash": "",
+    "created_at": "2026-10-03T09:03:44.018457+00:00",
+    "created_epoch": 1791018224,
+    "updated_at": "2026-10-03T09:03:44.018494+00:00",
+    "stale": false,
+    "stale_reason": "",
+    "observed_queries": [],
+    "evidence": {
+      "source": "graph_register_edit",
+      "recent_action_kinds": [],
+      "recent_queries": [],
+      "edited": true
+    }
+  },
+  {
+    "id": "mem:1791018224015",
+    "kind": "edit_observation",
+    "content": "Edited during active session",
+    "tags": [
+      "built",
+      "kakeibo",
+      "finance",
+      "tracker",
+      "switched",
+      "firebase",
+      "neon",
+      "postgres"
+    ],
+    "files": [
+      "src/app/api/login/route.ts"
+    ],
+    "file_path": "src/app/api/login/route.ts",
+    "symbol_id": "",
+    "symbol_hash": "",
+    "created_at": "2026-10-03T09:03:44.015791+00:00",
+    "created_epoch": 1791018224,
+    "updated_at": "2026-10-03T09:03:44.015805+00:00",
+    "stale": false,
+    "stale_reason": "",
+    "observed_queries": [],
+    "evidence": {
+      "source": "graph_register_edit",
+      "recent_action_kinds": [],
+      "recent_queries": [],
+      "edited": true
+    }
+  },
+  {
+    "id": "mem:1791018224011",
+    "kind": "edit_observation",
+    "content": "Edited during active session",
+    "tags": [
+      "built",
+      "kakeibo",
+      "finance",
+      "tracker",
+      "switched",
+      "firebase",
+      "neon",
+      "postgres"
+    ],
+    "files": [
+      "src/app/api/data/route.ts"
+    ],
+    "file_path": "src/app/api/data/route.ts",
+    "symbol_id": "",
+    "symbol_hash": "",
+    "created_at": "2026-10-03T09:03:44.011037+00:00",
+    "created_epoch": 1791018224,
+    "updated_at": "2026-10-03T09:03:44.011063+00:00",
+    "stale": false,
+    "stale_reason": "",
+    "observed_queries": [],
+    "evidence": {
+      "source": "graph_register_edit",
+      "recent_action_kinds": [],
+      "recent_queries": [],
+      "edited": true
+    }
+  },
+  {
+    "id": "mem:1791018224007",
+    "kind": "edit_observation",
+    "content": "Edited during active session",
+    "tags": [
+      "built",
+      "kakeibo",
+      "finance",
+      "tracker",
+      "switched",
+      "firebase",
+      "neon",
+      "postgres"
+    ],
+    "files": [
+      "src/lib/finance.ts"
+    ],
+    "file_path": "src/lib/finance.ts",
+    "symbol_id": "",
+    "symbol_hash": "",
+    "created_at": "2026-10-03T09:03:44.007539+00:00",
+    "created_epoch": 1791018224,
+    "updated_at": "2026-10-03T09:03:44.007550+00:00",
+    "stale": false,
+    "stale_reason": "",
+    "observed_queries": [],
+    "evidence": {
+      "source": "graph_register_edit",
+      "recent_action_kinds": [],
+      "recent_queries": [],
+      "edited": true
+    }
+  },
+  {
+    "id": "mem:1791018224006",
+    "kind": "edit_observation",
+    "content": "Edited during active session",
+    "tags": [
+      "built",
+      "kakeibo",
+      "finance",
+      "tracker",
+      "switched",
+      "firebase",
+      "neon",
+      "postgres"
+    ],
+    "files": [
+      "src/lib/server/db.ts"
+    ],
+    "file_path": "src/lib/server/db.ts",
+    "symbol_id": "",
+    "symbol_hash": "",
+    "created_at": "2026-10-03T09:03:44.006217+00:00",
+    "created_epoch": 1791018224,
+    "updated_at": "2026-10-03T09:03:44.006227+00:00",
+    "stale": false,
+    "stale_reason": "",
+    "observed_queries": [],
+    "evidence": {
+      "source": "graph_register_edit",
+      "recent_action_kinds": [],
+      "recent_queries": [],
+      "edited": true
+    }
+  },
+  {
+    "id": "mem:1791018224002",
+    "kind": "edit_observation",
+    "content": "Edited during active session",
+    "tags": [
+      "built",
+      "kakeibo",
+      "finance",
+      "tracker",
+      "switched",
+      "firebase",
+      "neon",
+      "postgres"
+    ],
+    "files": [
+      "src/lib/data.tsx"
+    ],
+    "file_path": "src/lib/data.tsx",
+    "symbol_id": "",
+    "symbol_hash": "",
+    "created_at": "2026-10-03T09:03:44.002751+00:00",
+    "created_epoch": 1791018224,
+    "updated_at": "2026-10-03T09:03:44.002770+00:00",
+    "stale": false,
+    "stale_reason": "",
+    "observed_queries": [],
+    "evidence": {
+      "source": "graph_register_edit",
+      "recent_action_kinds": [],
+      "recent_queries": [],
+      "edited": true
+    }
+  },
+  {
+    "id": "mem:1791018224005",
+    "kind": "edit_observation",
+    "content": "Edited during active session",
+    "tags": [
+      "built",
+      "kakeibo",
+      "finance",
+      "tracker",
+      "switched",
+      "firebase",
+      "neon",
+      "postgres"
+    ],
+    "files": [
+      "src/lib/ops.ts"
+    ],
+    "file_path": "src/lib/ops.ts",
+    "symbol_id": "",
+    "symbol_hash": "",
+    "created_at": "2026-10-03T09:03:44.005567+00:00",
+    "created_epoch": 1791018224,
+    "updated_at": "2026-10-03T09:03:44.005584+00:00",
+    "stale": false,
+    "stale_reason": "",
+    "observed_queries": [],
+    "evidence": {
+      "source": "graph_register_edit",
+      "recent_action_kinds": [],
+      "recent_queries": [],
+      "edited": true
+    }
+  },
+  {
+    "id": "mem:1791018224006",
+    "kind": "edit_observation",
+    "content": "Edited during active session",
+    "tags": [
+      "built",
+      "kakeibo",
+      "finance",
+      "tracker",
+      "switched",
+      "firebase",
+      "neon",
+      "postgres"
+    ],
+    "files": [
+      "src/lib/server/session.ts"
+    ],
+    "file_path": "src/lib/server/session.ts",
+    "symbol_id": "",
+    "symbol_hash": "",
+    "created_at": "2026-10-03T09:03:44.006820+00:00",
+    "created_epoch": 1791018224,
+    "updated_at": "2026-10-03T09:03:44.006830+00:00",
+    "stale": false,
+    "stale_reason": "",
+    "observed_queries": [],
+    "evidence": {
+      "source": "graph_register_edit",
+      "recent_action_kinds": [],
+      "recent_queries": [],
+      "edited": true
+    }
+  },
+  {
+    "id": "mem:1791018224009",
+    "kind": "edit_observation",
+    "content": "Edited during active session",
+    "tags": [
+      "built",
+      "kakeibo",
+      "finance",
+      "tracker",
+      "switched",
+      "firebase",
+      "neon",
+      "postgres"
+    ],
+    "files": [
+      "src/lib/seed.ts"
+    ],
+    "file_path": "src/lib/seed.ts",
+    "symbol_id": "",
+    "symbol_hash": "",
+    "created_at": "2026-10-03T09:03:44.008183+00:00",
+    "created_epoch": 1791018224,
+    "updated_at": "2026-10-03T09:03:44.009140+00:00",
+    "stale": false,
+    "stale_reason": "",
+    "observed_queries": [],
+    "evidence": {
+      "source": "graph_register_edit",
+      "recent_action_kinds": [],
+      "recent_queries": [],
+      "edited": true
+    }
+  },
+  {
+    "id": "mem:1791018224014",
+    "kind": "edit_observation",
+    "content": "Edited during active session",
+    "tags": [
+      "built",
+      "kakeibo",
+      "finance",
+      "tracker",
+      "switched",
+      "firebase",
+      "neon",
+      "postgres"
+    ],
+    "files": [
+      "src/app/api/mutate/route.ts"
+    ],
+    "file_path": "src/app/api/mutate/route.ts",
+    "symbol_id": "",
+    "symbol_hash": "",
+    "created_at": "2026-10-03T09:03:44.014806+00:00",
+    "created_epoch": 1791018224,
+    "updated_at": "2026-10-03T09:03:44.014843+00:00",
+    "stale": false,
+    "stale_reason": "",
+    "observed_queries": [],
+    "evidence": {
+      "source": "graph_register_edit",
+      "recent_action_kinds": [],
+      "recent_queries": [],
+      "edited": true
+    }
+  },
+  {
+    "id": "mem:1791018224016",
+    "kind": "edit_observation",
+    "content": "Edited during active session",
+    "tags": [
+      "built",
+      "kakeibo",
+      "finance",
+      "tracker",
+      "switched",
+      "firebase",
+      "neon",
+      "postgres"
+    ],
+    "files": [
+      "src/components/Shell.tsx"
+    ],
+    "file_path": "src/components/Shell.tsx",
+    "symbol_id": "",
+    "symbol_hash": "",
+    "created_at": "2026-10-03T09:03:44.016677+00:00",
+    "created_epoch": 1791018224,
+    "updated_at": "2026-10-03T09:03:44.016688+00:00",
+    "stale": false,
+    "stale_reason": "",
+    "observed_queries": [],
+    "evidence": {
+      "source": "graph_register_edit",
+      "recent_action_kinds": [],
+      "recent_queries": [],
+      "edited": true
+    }
+  },
+  {
+    "id": "mem:1791018224020",
+    "kind": "edit_observation",
+    "content": "Edited during active session",
+    "tags": [
+      "built",
+      "kakeibo",
+      "finance",
+      "tracker",
+      "switched",
+      "firebase",
+      "neon",
+      "postgres"
+    ],
+    "files": [
+      "src/app/plan/page.tsx"
+    ],
+    "file_path": "src/app/plan/page.tsx",
+    "symbol_id": "",
+    "symbol_hash": "",
+    "created_at": "2026-10-03T09:03:44.020134+00:00",
+    "created_epoch": 1791018224,
+    "updated_at": "2026-10-03T09:03:44.020153+00:00",
+    "stale": false,
+    "stale_reason": "",
+    "observed_queries": [],
+    "evidence": {
+      "source": "graph_register_edit",
+      "recent_action_kinds": [],
+      "recent_queries": [],
+      "edited": true
+    }
+  },
+  {
+    "id": "mem:1791018224023",
+    "kind": "edit_observation",
+    "content": "Edited during active session",
+    "tags": [
+      "built",
+      "kakeibo",
+      "finance",
+      "tracker",
+      "switched",
+      "firebase",
+      "neon",
+      "postgres"
+    ],
+    "files": [
+      "README.md"
+    ],
+    "file_path": "README.md",
+    "symbol_id": "",
+    "symbol_hash": "",
+    "created_at": "2026-10-03T09:03:44.023830+00:00",
+    "created_epoch": 1791018224,
+    "updated_at": "2026-10-03T09:03:44.023843+00:00",
+    "stale": false,
+    "stale_reason": "",
+    "observed_queries": [],
+    "evidence": {
+      "source": "graph_register_edit",
+      "recent_action_kinds": [],
+      "recent_queries": [],
+      "edited": true
+    }
+  },
+  {
+    "id": "mem:1791018224113",
+    "kind": "decision",
+    "content": "Client applies ops optimistically, queues in localStorage, syncs via /api/mutate.",
+    "tags": [
+      "sync",
+      "offline"
+    ],
+    "files": [
+      "src/lib/ops.ts",
+      "src/lib/data.tsx"
+    ],
+    "file_path": "src/lib/ops.ts",
+    "symbol_id": "",
+    "symbol_hash": "",
+    "created_at": "2026-10-03T09:03:44.112147+00:00",
+    "created_epoch": 1791018224,
+    "updated_at": "2026-10-03T09:03:44.112147+00:00",
+    "stale": false,
+    "stale_reason": "",
+    "observed_queries": [],
+    "evidence": {}
+  }
+]

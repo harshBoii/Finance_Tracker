@@ -1,0 +1,282 @@
+{
+  "nodes": [
+    {
+      "id": "query:build personal finance tracker next firebase pwa anime",
+      "type": "query",
+      "meta": {
+        "text": "Build personal finance tracker Next.js Firebase PWA anime-themed app from scratch"
+      }
+    },
+    {
+      "id": "CLAUDE.md",
+      "type": "file"
+    },
+    {
+      "id": "action:edit:1791018223",
+      "type": "action",
+      "meta": {
+        "summary": "Built Kakeibo finance tracker; switched Firebase to Neon Postgres + single-password auth with offline op queue"
+      }
+    },
+    {
+      "id": "src/lib/data.tsx",
+      "type": "file"
+    },
+    {
+      "id": "src/lib/ops.ts",
+      "type": "file"
+    },
+    {
+      "id": "src/lib/server/db.ts",
+      "type": "file"
+    },
+    {
+      "id": "src/lib/server/session.ts",
+      "type": "file"
+    },
+    {
+      "id": "src/lib/finance.ts",
+      "type": "file"
+    },
+    {
+      "id": "src/lib/seed.ts",
+      "type": "file"
+    },
+    {
+      "id": "src/app/api/data/route.ts",
+      "type": "file"
+    },
+    {
+      "id": "src/app/api/mutate/route.ts",
+      "type": "file"
+    },
+    {
+      "id": "src/app/api/login/route.ts",
+      "type": "file"
+    },
+    {
+      "id": "src/components/Shell.tsx",
+      "type": "file"
+    },
+    {
+      "id": "src/app/page.tsx",
+      "type": "file"
+    },
+    {
+      "id": "src/app/plan/page.tsx",
+      "type": "file"
+    },
+    {
+      "id": "src/app/settings/page.tsx",
+      "type": "file"
+    },
+    {
+      "id": "README.md",
+      "type": "file"
+    }
+  ],
+  "edges": [
+    {
+      "from": "query:build personal finance tracker next firebase pwa anime",
+      "to": "CLAUDE.md",
+      "rel": "retrieved",
+      "ts": 1791013279
+    },
+    {
+      "from": "action:edit:1791018223",
+      "to": "src/lib/data.tsx",
+      "rel": "edited",
+      "ts": 1791018223
+    },
+    {
+      "from": "action:edit:1791018223",
+      "to": "src/lib/ops.ts",
+      "rel": "edited",
+      "ts": 1791018223
+    },
+    {
+      "from": "action:edit:1791018223",
+      "to": "src/lib/server/db.ts",
+      "rel": "edited",
+      "ts": 1791018223
+    },
+    {
+      "from": "action:edit:1791018223",
+      "to": "src/lib/server/session.ts",
+      "rel": "edited",
+      "ts": 1791018223
+    },
+    {
+      "from": "action:edit:1791018223",
+      "to": "src/lib/finance.ts",
+      "rel": "edited",
+      "ts": 1791018223
+    },
+    {
+      "from": "action:edit:1791018223",
+      "to": "src/lib/seed.ts",
+      "rel": "edited",
+      "ts": 1791018223
+    },
+    {
+      "from": "action:edit:1791018223",
+      "to": "src/app/api/data/route.ts",
+      "rel": "edited",
+      "ts": 1791018223
+    },
+    {
+      "from": "action:edit:1791018223",
+      "to": "src/app/api/mutate/route.ts",
+      "rel": "edited",
+      "ts": 1791018223
+    },
+    {
+      "from": "action:edit:1791018223",
+      "to": "src/app/api/login/route.ts",
+      "rel": "edited",
+      "ts": 1791018223
+    },
+    {
+      "from": "action:edit:1791018223",
+      "to": "src/components/Shell.tsx",
+      "rel": "edited",
+      "ts": 1791018223
+    },
+    {
+      "from": "action:edit:1791018223",
+      "to": "src/app/page.tsx",
+      "rel": "edited",
+      "ts": 1791018223
+    },
+    {
+      "from": "action:edit:1791018223",
+      "to": "src/app/plan/page.tsx",
+      "rel": "edited",
+      "ts": 1791018223
+    },
+    {
+      "from": "action:edit:1791018223",
+      "to": "src/app/settings/page.tsx",
+      "rel": "edited",
+      "ts": 1791018223
+    },
+    {
+      "from": "action:edit:1791018223",
+      "to": "README.md",
+      "rel": "edited",
+      "ts": 1791018223
+    }
+  ],
+  "files": {
+    "src/lib/data.tsx": {
+      "last_action": "edited",
+      "last_ts": "2026-10-03T09:03:43.986064+00:00",
+      "edited_count": 1
+    },
+    "src/lib/ops.ts": {
+      "last_action": "edited",
+      "last_ts": "2026-10-03T09:03:43.986120+00:00",
+      "edited_count": 1
+    },
+    "src/lib/server/db.ts": {
+      "last_action": "edited",
+      "last_ts": "2026-10-03T09:03:43.986132+00:00",
+      "edited_count": 1
+    },
+    "src/lib/server/session.ts": {
+      "last_action": "edited",
+      "last_ts": "2026-10-03T09:03:43.986142+00:00",
+      "edited_count": 1
+    },
+    "src/lib/finance.ts": {
+      "last_action": "edited",
+      "last_ts": "2026-10-03T09:03:43.986154+00:00",
+      "edited_count": 1
+    },
+    "src/lib/seed.ts": {
+      "last_action": "edited",
+      "last_ts": "2026-10-03T09:03:43.986162+00:00",
+      "edited_count": 1
+    },
+    "src/app/api/data/route.ts": {
+      "last_action": "edited",
+      "last_ts": "2026-10-03T09:03:43.986171+00:00",
+      "edited_count": 1
+    },
+    "src/app/api/mutate/route.ts": {
+      "last_action": "edited",
+      "last_ts": "2026-10-03T09:03:43.987616+00:00",
+      "edited_count": 1
+    },
+    "src/app/api/login/route.ts": {
+      "last_action": "edited",
+      "last_ts": "2026-10-03T09:03:43.987641+00:00",
+      "edited_count": 1
+    },
+    "src/components/Shell.tsx": {
+      "last_action": "edited",
+      "last_ts": "2026-10-03T09:03:43.987656+00:00",
+      "edited_count": 1
+    },
+    "src/app/page.tsx": {
+      "last_action": "edited",
+      "last_ts": "2026-10-03T09:03:43.987670+00:00",
+      "edited_count": 1
+    },
+    "src/app/plan/page.tsx": {
+      "last_action": "edited",
+      "last_ts": "2026-10-03T09:03:43.987693+00:00",
+      "edited_count": 1
+    },
+    "src/app/settings/page.tsx": {
+      "last_action": "edited",
+      "last_ts": "2026-10-03T09:03:43.987708+00:00",
+      "edited_count": 1
+    },
+    "README.md": {
+      "last_action": "edited",
+      "last_ts": "2026-10-03T09:03:43.987759+00:00",
+      "edited_count": 1
+    }
+  },
+  "actions": [
+    {
+      "ts": 1791013279,
+      "kind": "retrieve",
+      "payload": {
+        "kind": "retrieve",
+        "query": "Build personal finance tracker Next.js Firebase PWA anime-themed app from scratch"
+      }
+    },
+    {
+      "ts": 1791018224,
+      "kind": "register_edit",
+      "payload": {
+        "kind": "register_edit"
+      }
+    }
+  ],
+  "decisions": [
+    {
+      "ts": 1791018223,
+      "summary": "Built Kakeibo finance tracker; switched Firebase to Neon Postgres + single-password auth with offline op queue",
+      "files": [
+        "src/lib/data.tsx",
+        "src/lib/ops.ts",
+        "src/lib/server/db.ts",
+        "src/lib/server/session.ts",
+        "src/lib/finance.ts",
+        "src/lib/seed.ts",
+        "src/app/api/data/route.ts",
+        "src/app/api/mutate/route.ts",
+        "src/app/api/login/route.ts",
+        "src/components/Shell.tsx",
+        "src/app/page.tsx",
+        "src/app/plan/page.tsx",
+        "src/app/settings/page.tsx",
+        "README.md"
+      ],
+      "scope": "global"
+    }
+  ]
+}

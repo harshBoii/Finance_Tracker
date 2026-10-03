@@ -1,0 +1,1 @@
+{"timestamp": "2026-10-03T09:04:01.106617+00:00", "model": "claude-opus-5-5", "input_tokens": 470, "output_tokens": 475709, "cache_creation_input_tokens": 549003, "cache_read_input_tokens": 40819081, "total_tokens": 41844263, "cost_usd": 107.207653, "project": "/Users/mac/Desktop/SaaS/Finance_Tracker", "description": "auto", "mode": "session"}

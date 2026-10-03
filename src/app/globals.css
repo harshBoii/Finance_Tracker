@@ -1,0 +1,355 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* ---------- tokens ---------- */
+:root {
+  --paper: #f6f1e6;
+  --panel: #fffdf8;
+  --sunk: #efe9dc;
+  --ink: #141414;
+  --line: #141414;
+  --muted: #5e5966;
+  --dot: rgba(20, 20, 20, 0.14);
+  --pink: #ff2e74;
+  --cyan: #0ea5c9;
+  --yellow: #ffc61a;
+  --red: #e4312b;
+  --green: #17a057;
+  --violet: #7656ff;
+  --skin: #ffe2cc;
+  --hair: #2a2238;
+  --on-accent: #141414;
+  --chart-1: #ff2e74;
+  --chart-2: #7656ff;
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --paper: #100f16;
+  --panel: #1b1a24;
+  --sunk: #23222e;
+  --ink: #f5f0e5;
+  --line: #ebe4d5;
+  --muted: #a9a3b8;
+  --dot: rgba(245, 240, 229, 0.1);
+  --pink: #ff5c95;
+  --cyan: #3cc9ec;
+  --yellow: #ffd54a;
+  --red: #ff5b4f;
+  --green: #3ccf7e;
+  --violet: #9c86ff;
+  --skin: #ffe2cc;
+  --hair: #2a2238;
+  --on-accent: #141414;
+  --chart-1: #f0457f;
+  --chart-2: #8a72f5;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-panel: var(--panel);
+  --color-sunk: var(--sunk);
+  --color-ink: var(--ink);
+  --color-line: var(--line);
+  --color-muted: var(--muted);
+  --color-pink: var(--pink);
+  --color-cyan: var(--cyan);
+  --color-yellow: var(--yellow);
+  --color-red: var(--red);
+  --color-green: var(--green);
+  --color-violet: var(--violet);
+  --color-on-accent: var(--on-accent);
+  --font-display: var(--font-bangers), "Arial Black", system-ui, sans-serif;
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-jp: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
+}
+
+html {
+  background: var(--paper);
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-feature-settings: "cv11", "ss01";
+  overscroll-behavior-y: none;
+}
+
+/* Component classes live in a layer so Tailwind utilities (bg-*, p-*) can override them. */
+@layer components {
+  /* Numbers: clean, tabular, never the display font. */
+  .num {
+    font-family: var(--font-sans);
+    font-variant-numeric: tabular-nums;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  .num .cur {
+    font-weight: 700;
+    font-size: 0.72em;
+    margin-right: 0.04em;
+    vertical-align: 0.08em;
+  }
+
+  .display {
+    font-family: var(--font-display);
+    letter-spacing: 0.04em;
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  .jp {
+    font-family: var(--font-jp);
+    font-weight: 800;
+    letter-spacing: 0.08em;
+  }
+
+  /* ---------- manga panel ---------- */
+  .panel {
+    position: relative;
+    background: var(--panel);
+    border: 2.5px solid var(--line);
+    border-radius: 5px;
+    box-shadow: 4px 4px 0 var(--line);
+  }
+
+  .halftone {
+    position: relative;
+    isolation: isolate;
+  }
+  .halftone::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    border-radius: inherit;
+    background-image: radial-gradient(var(--dot) 1.15px, transparent 1.45px);
+    background-size: 7px 7px;
+    -webkit-mask-image: linear-gradient(135deg, transparent 35%, #000 100%);
+    mask-image: linear-gradient(135deg, transparent 35%, #000 100%);
+  }
+  .halftone-full::before {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  /* Radial speed lines for milestone moments. */
+  .speedlines {
+    background: repeating-conic-gradient(from 0deg at 50% 50%, var(--line) 0deg 1.4deg, transparent 1.4deg 7deg);
+    -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent 22%, #000 62%);
+    mask-image: radial-gradient(circle at 50% 50%, transparent 22%, #000 62%);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    border: 2.5px solid var(--line);
+    border-radius: 5px;
+    box-shadow: 3px 3px 0 var(--line);
+    font-weight: 800;
+    transition:
+      transform 80ms ease,
+      box-shadow 80ms ease;
+    user-select: none;
+  }
+  .btn:active:not(:disabled) {
+    transform: translate(3px, 3px);
+    box-shadow: 0 0 0 var(--line);
+  }
+  .btn:disabled {
+    opacity: 0.45;
+    box-shadow: none;
+  }
+
+  .field {
+    width: 100%;
+    background: var(--panel);
+    border: 2px solid var(--line);
+    border-radius: 5px;
+    padding: 0.55rem 0.7rem;
+    font-weight: 600;
+    outline: none;
+  }
+  .field:focus {
+    box-shadow: 3px 3px 0 var(--pink);
+  }
+
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .safe-top {
+    padding-top: env(safe-area-inset-top);
+  }
+}
+
+/* ---------- motion ---------- */
+@keyframes pop-in {
+  0% {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.04);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes rise {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+@keyframes wobble {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  25% {
+    transform: rotate(-4deg);
+  }
+  75% {
+    transform: rotate(4deg);
+  }
+}
+@keyframes shake {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  20% {
+    transform: translate(-2px, 1px);
+  }
+  40% {
+    transform: translate(2px, -1px);
+  }
+  60% {
+    transform: translate(-2px, -1px);
+  }
+  80% {
+    transform: translate(2px, 1px);
+  }
+}
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes charge {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 28px 0;
+  }
+}
+@keyframes burst {
+  0% {
+    transform: scale(0.2) rotate(-20deg);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.12) rotate(4deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotate(0);
+  }
+}
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: scale(0.7);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes drip {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+}
+
+.anim-pop {
+  animation: pop-in 260ms cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+}
+.anim-rise {
+  animation: rise 220ms cubic-bezier(0.2, 0.9, 0.3, 1) both;
+}
+.anim-fade {
+  animation: fade 180ms ease both;
+}
+.anim-bob {
+  animation: bob 2.4s ease-in-out infinite;
+}
+.anim-wobble {
+  animation: wobble 1.6s ease-in-out infinite;
+  transform-origin: 50% 90%;
+}
+.anim-shake {
+  animation: shake 0.35s linear infinite;
+}
+.anim-spin-slow {
+  animation: spin-slow 18s linear infinite;
+}
+.anim-burst {
+  animation: burst 520ms cubic-bezier(0.2, 0.9, 0.3, 1.3) both;
+}
+.anim-twinkle {
+  animation: twinkle 1.4s ease-in-out infinite;
+}
+.anim-drip {
+  animation: drip 1.2s ease-in infinite;
+}
+.charging {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(255, 255, 255, 0.35) 0 7px,
+    transparent 7px 14px
+  );
+  background-size: 28px 100%;
+  animation: charge 0.9s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+  }
+}
