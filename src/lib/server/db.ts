@@ -1,7 +1,7 @@
 import "server-only";
 import { neon, type NeonQueryFunction } from "@neondatabase/serverless";
 import { TABLES, type Op, type Snapshot } from "../ops";
-import { seedCommitments, seedPlan, seedPots } from "../seed";
+import { migratePlan, seedCommitments, seedPlan, seedPots } from "../seed";
 import type { Commitment, Expense, Meta, Plan, Pot, WishItem } from "../types";
 
 let client: NeonQueryFunction<false, false> | null = null;
@@ -50,6 +50,9 @@ export async function loadAll(today: string): Promise<Snapshot> {
     await seed(today);
     state = await db`select plan, meta from app_state where id = 1`;
   }
+  const stored = state[0].plan as Plan;
+  const plan = migratePlan(stored);
+  if (plan !== stored) await db`update app_state set plan = ${JSON.stringify(plan)}::jsonb where id = 1`;
   const [expenses, commitments, pots, wishlist] = await db.transaction(
     [
       db`select id, amount, category_id, note, to_char(date, 'YYYY-MM-DD') as date, created_at::float8 as created_at
@@ -61,7 +64,7 @@ export async function loadAll(today: string): Promise<Snapshot> {
     { readOnly: true },
   );
   return {
-    plan: state[0].plan as Plan,
+    plan,
     meta: { lastMilestone: 0, celebrated: [], ...(state[0].meta as Partial<Meta>) },
     expenses: expenses.map(
       (r): Expense => ({

@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 export interface CelebrationSpec {
   title: string; // big text inside the burst
-  jp: string; // onomatopoeia / label
+  jp: string; // little exclamation above it
   sub?: string;
 }
 
@@ -18,10 +18,9 @@ function burstPoints(spikes: number, outer: number, inner: number, c = 110) {
   return pts.join(" ");
 }
 
-const OUTER = burstPoints(18, 106, 74);
-const INNER = burstPoints(18, 90, 66);
+const OUTER = burstPoints(14, 104, 80);
 
-/** Full-screen speed-line burst for milestones, finished installments and skipped buys. */
+/** Soft speed-line burst for milestones, finished installments and skipped buys. */
 export function Celebration({ spec, onDone }: { spec: CelebrationSpec; onDone: () => void }) {
   useEffect(() => {
     const t = setTimeout(onDone, 3200);
@@ -30,27 +29,31 @@ export function Celebration({ spec, onDone }: { spec: CelebrationSpec; onDone: (
 
   return (
     <button
-      className="anim-fade fixed inset-0 z-[70] flex cursor-pointer items-center justify-center overflow-hidden bg-paper/85"
+      className="anim-fade fixed inset-0 z-[70] flex cursor-pointer items-center justify-center overflow-hidden bg-bg/80 backdrop-blur-sm"
       onClick={onDone}
       aria-label={`${spec.title}. Tap to close`}
     >
-      <div className="speedlines anim-spin-slow pointer-events-none absolute -inset-[50%] opacity-60" />
+      <div className="speedlines anim-spin-slow pointer-events-none absolute -inset-[50%] opacity-50" />
       <div className="relative flex flex-col items-center">
-        <span aria-hidden className="jp anim-burst mb-[-18px] -rotate-6 text-5xl text-pink [text-shadow:3px_3px_0_var(--line)]">
+        <span aria-hidden className="jp anim-burst mb-[-14px] -rotate-6 text-4xl text-pink-ink">
           {spec.jp}
         </span>
-        <div className="anim-burst relative h-[17rem] w-[17rem]" style={{ animationDelay: "80ms" }}>
-          <svg viewBox="0 0 220 220" className="h-full w-full" aria-hidden>
-            <polygon points={OUTER} fill="var(--line)" />
-            <polygon points={OUTER} fill="var(--yellow)" transform="translate(-4 -4)" stroke="var(--line)" strokeWidth={3} />
-            <polygon points={INNER} fill="#fff" opacity={0.45} transform="translate(-4 -4)" />
+        <div className="anim-burst relative h-[16rem] w-[16rem]" style={{ animationDelay: "80ms" }}>
+          <svg viewBox="0 0 220 220" className="h-full w-full drop-shadow-[0_14px_30px_rgba(239,122,166,0.35)]" aria-hidden>
+            <defs>
+              <linearGradient id="burst-fill" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stopColor="#ffe7a8" />
+                <stop offset="1" stopColor="#ffc2d8" />
+              </linearGradient>
+            </defs>
+            <polygon points={OUTER} fill="url(#burst-fill)" stroke="#fff" strokeWidth={5} strokeLinejoin="round" />
           </svg>
-          <span className="num absolute inset-0 flex items-center justify-center px-10 text-center text-[2.1rem] leading-tight text-on-accent">
+          <span className="num absolute inset-0 flex items-center justify-center px-10 text-center text-[2rem] leading-tight text-[#5a3150]">
             {spec.title}
           </span>
         </div>
         {spec.sub && (
-          <p className="panel anim-pop mt-2 max-w-[18rem] px-3 py-2 text-center text-sm font-bold" style={{ animationDelay: "250ms" }}>
+          <p className="panel anim-pop mt-1 max-w-[18rem] px-4 py-2.5 text-center text-sm font-bold" style={{ animationDelay: "250ms" }}>
             {spec.sub}
           </p>
         )}

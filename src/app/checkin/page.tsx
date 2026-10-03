@@ -21,18 +21,18 @@ export default function CheckInPage() {
   const delta = w.spent - ci.lastWeekSpent;
 
   return (
-    <div className="mx-auto max-w-2xl space-y-4">
+    <div className="mx-auto w-full max-w-[1600px] space-y-4">
       <PageTitle title="Check-in" jp="日曜日" />
 
       <div className="flex items-center gap-2">
-        <button className="btn bg-panel p-1.5" onClick={() => setAnchor(addDays(w.start, -1))} aria-label="Previous week">
+        <button className="btn p-1.5" onClick={() => setAnchor(addDays(w.start, -1))} aria-label="Previous week">
           <ChevronLeft size={18} strokeWidth={3} />
         </button>
         <p className="flex-1 text-center text-sm font-extrabold">
           {dayLabel(w.start)} – {dayLabel(w.end)}
         </p>
         <button
-          className="btn bg-panel p-1.5"
+          className="btn p-1.5"
           disabled={addDays(w.end, 1) > today}
           onClick={() => setAnchor(addDays(w.end, 1))}
           aria-label="Next week"
@@ -41,18 +41,19 @@ export default function CheckInPage() {
         </button>
       </div>
 
-      <section className={cx("panel halftone flex items-center gap-4 p-4", w.left < 0 && "bg-red/10")}>
+      <div className="page-grid">
+      <section className={cx("panel glow flex items-center gap-4 p-4", w.left < 0 && "bg-red/10")}>
         <Mascot mood={mood} size={84} />
         <div>
           <p className="text-[11px] font-extrabold tracking-wide text-muted uppercase">Spent this week</p>
-          <Money value={w.spent} className={cx("block text-[2.6rem] leading-none", w.left < 0 && "text-red")} />
+          <Money value={w.spent} className={cx("block text-[2.6rem] leading-none", w.left < 0 && "text-red-ink")} />
           <p className="mt-1 text-xs font-bold text-muted">
             {w.left >= 0 ? `${rupees(w.left)} under` : `${rupees(-w.left)} over`} the {rupees(w.budget)} weekly budget
           </p>
         </div>
       </section>
 
-      <section className="panel flex gap-3 bg-yellow p-4 text-on-accent">
+      <section className="panel flex gap-3 bg-yellow/20 p-4">
         <Lightbulb className="mt-0.5 shrink-0" size={20} strokeWidth={2.5} />
         <div>
           <p className="display text-lg">Next week&apos;s move</p>
@@ -62,17 +63,17 @@ export default function CheckInPage() {
 
       <div className="grid grid-cols-3 gap-3">
         <Mini label="vs last week">
-          <Money value={delta} signed className={cx("text-lg", delta > 0 ? "text-red" : "text-green")} />
+          <Money value={delta} signed className={cx("text-lg", delta > 0 ? "text-red-ink" : "text-green-ink")} />
         </Mini>
         <Mini label="No-spend days">
           <span className="num text-lg">{ci.noSpendDays}</span>
         </Mini>
         <Mini label="Wishlist avoided">
-          <Money value={ci.avoided} className="text-lg text-green" />
+          <Money value={ci.avoided} className="text-lg text-green-ink" />
         </Mini>
       </div>
 
-      <Panel title="Where it went" jp="内訳">
+      <Panel title="Where it went" jp="内訳" className="lg:row-span-3">
         <ul className="space-y-3">
           {ci.byCat.map(({ cat, spent, budget }) => (
             <li key={cat.id}>
@@ -82,7 +83,7 @@ export default function CheckInPage() {
                 <span className="text-[11px] font-semibold text-muted">
                   {w.spent > 0 ? `${Math.round((spent / w.spent) * 100)}%` : ""}
                 </span>
-                <span className={cx("ml-auto text-xs font-semibold", spent > budget ? "text-red" : "text-muted")}>
+                <span className={cx("ml-auto text-xs font-semibold", spent > budget ? "text-red-ink" : "text-muted")}>
                   <Money value={spent} className="text-sm text-ink" /> / <Money value={budget} />
                 </span>
               </div>
@@ -91,12 +92,13 @@ export default function CheckInPage() {
           ))}
         </ul>
         {ci.biggest && (
-          <p className="mt-4 border-t-2 border-line/10 pt-2 text-xs font-semibold text-muted">
+          <p className="mt-4 border-t border-line pt-2 text-xs font-semibold text-muted">
             Biggest spend: <b className="text-ink">{ci.biggest.note || plan.categories.find((c) => c.id === ci.biggest!.categoryId)?.name}</b>{" "}
             <Money value={ci.biggest.amount} className="text-ink" /> on {dayLabel(ci.biggest.date)}.
           </p>
         )}
       </Panel>
+      </div>
     </div>
   );
 }

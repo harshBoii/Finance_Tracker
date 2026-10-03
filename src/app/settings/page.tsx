@@ -34,9 +34,10 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="mx-auto max-w-2xl space-y-4 pb-16">
+    <div className="mx-auto w-full max-w-[1600px] pb-16">
       <PageTitle title="Settings" jp="設定" />
 
+      <div className="gap-5 lg:columns-2 2xl:columns-3 [&>*]:mb-4 [&>*]:break-inside-avoid lg:[&>*]:mb-5">
       <Panel title="Period & cash" jp="期間">
         <Grid>
           <Field label="Start month">
@@ -112,7 +113,7 @@ export default function SettingsPage() {
           ))}
         </div>
         <button
-          className="btn mt-3 bg-panel px-2.5 py-1 text-xs"
+          className="btn mt-3 px-2.5 py-1 text-xs"
           onClick={() =>
             set("incomes", [...draft.incomes, { id: `inc-${Date.now().toString(36)}`, label: "New income", amount: 0, date: `${draft.periodStart}-01` }])
           }
@@ -139,7 +140,7 @@ export default function SettingsPage() {
         <p className="mt-4 mb-1 text-[11px] font-extrabold tracking-wide text-muted uppercase">Categories</p>
         <div className="space-y-3">
           {draft.categories.map((c, i) => (
-            <div key={c.id} className="rounded-[5px] border-2 border-line/20 p-2.5">
+            <div key={c.id} className="rounded-2xl border border-line-strong p-2.5">
               <div className="grid grid-cols-[3rem_1fr_3.5rem_auto] gap-2">
                 <input className="field px-1 text-center text-lg" value={c.emoji} onChange={(e) => setCat(i, { emoji: e.target.value })} aria-label="Emoji" />
                 <input className="field text-sm" value={c.name} onChange={(e) => setCat(i, { name: e.target.value })} aria-label="Category name" />
@@ -179,7 +180,7 @@ export default function SettingsPage() {
                         key={col}
                         aria-label={col}
                         onClick={() => setCat(i, { color: col })}
-                        className={cx("h-6 w-6 rounded-full border-2", c.color === col ? "border-line" : "border-transparent")}
+                        className={cx("h-6 w-6 rounded-full border", c.color === col ? "border-line" : "border-transparent")}
                         style={{ background: `var(--${col})` }}
                       />
                     ))}
@@ -194,11 +195,19 @@ export default function SettingsPage() {
                 />
                 Fun / leftover bucket (budget = cap minus the rest)
               </label>
+              <label className="mt-1 flex items-center gap-2 text-xs font-bold">
+                <input
+                  type="checkbox"
+                  checked={c.period === "month"}
+                  onChange={(e) => setCat(i, { period: e.target.checked ? "month" : undefined })}
+                />
+                Monthly allowance (kept out of the weekly number, with a &ldquo;mark used&rdquo; button)
+              </label>
             </div>
           ))}
         </div>
         <button
-          className="btn mt-3 bg-panel px-2.5 py-1 text-xs"
+          className="btn mt-3 px-2.5 py-1 text-xs"
           onClick={() =>
             set("categories", [
               ...draft.categories,
@@ -259,13 +268,13 @@ export default function SettingsPage() {
         title="Planned items & EMIs"
         jp="予定"
         right={
-          <button className="btn bg-yellow px-2 py-1 text-xs text-on-accent" onClick={() => setEditing(blankCommitment(plan.periodStart, commitments.length))}>
+          <button className="btn px-2 py-1 text-xs btn-primary" onClick={() => setEditing(blankCommitment(plan.periodStart, commitments.length))}>
             <Plus size={14} strokeWidth={3} /> Add
           </button>
         }
       >
         <p className="mb-2 text-xs font-semibold text-muted">These save immediately.</p>
-        <ul className="divide-y-2 divide-line/10">
+        <ul className="divide-y divide-line">
           {commitments.map((c) => (
             <li key={c.id} className="flex items-center gap-2 py-2 text-sm">
               {c.mustPay && <Lock size={12} strokeWidth={3} aria-label="Must pay" />}
@@ -287,20 +296,22 @@ export default function SettingsPage() {
       <Panel title="Device" jp="端末">
         <div className="flex items-center gap-2 text-sm">
           <span className="font-semibold text-muted">Lock this device and clear its offline copy.</span>
-          <button className="btn ml-auto bg-panel px-3 py-1.5 text-xs" onClick={lock}>
+          <button className="btn ml-auto px-3 py-1.5 text-xs" onClick={lock}>
             Lock
           </button>
         </div>
       </Panel>
 
+      </div>
+
       {dirty && (
         <div className="fixed inset-x-0 bottom-[calc(84px+env(safe-area-inset-bottom))] z-30 flex justify-center px-4 md:bottom-6 md:pl-56">
           <div className="panel anim-pop flex w-full max-w-md items-center gap-2 p-2">
             <span className="flex-1 pl-2 text-sm font-bold">Unsaved changes</span>
-            <button className="btn bg-panel px-3 py-1.5 text-sm" onClick={() => setDraft(plan)}>
+            <button className="btn px-3 py-1.5 text-sm" onClick={() => setDraft(plan)}>
               Reset
             </button>
-            <button className="btn bg-yellow px-4 py-1.5 text-sm text-on-accent" onClick={save}>
+            <button className="btn px-4 py-1.5 text-sm btn-primary" onClick={save}>
               Save plan
             </button>
           </div>
@@ -319,7 +330,7 @@ function PotsEditor({ pots, commitments }: { pots: Pot[]; commitments: Commitmen
       <p className="mb-2 text-xs font-semibold text-muted">These save immediately. Paying a linked item uses the pot&apos;s money.</p>
       <div className="space-y-3">
         {pots.map((p) => (
-          <div key={p.id} className="rounded-[5px] border-2 border-line/20 p-2.5">
+          <div key={p.id} className="rounded-2xl border border-line-strong p-2.5">
             <div className="grid grid-cols-[1fr_3.5rem_6rem_auto] gap-2">
               <input className="field text-sm" defaultValue={p.name} onBlur={(e) => savePot({ ...p, name: e.target.value || p.name })} aria-label="Pot name" />
               <input className="field jp px-1 text-center text-sm" defaultValue={p.jp} onBlur={(e) => savePot({ ...p, jp: e.target.value })} aria-label="Japanese label" />
@@ -345,7 +356,7 @@ function PotsEditor({ pots, commitments }: { pots: Pot[]; commitments: Commitmen
                       onClick={() =>
                         savePot({ ...p, commitmentIds: on ? p.commitmentIds.filter((x) => x !== c.id) : [...p.commitmentIds, c.id] })
                       }
-                      className={cx("rounded-full border-2 px-2 py-0.5 text-[11px] font-bold", on ? "border-line bg-ink text-paper" : "border-line/25")}
+                      className={cx("rounded-full border px-2 py-0.5 text-[11px] font-bold", on ? "chip-on" : "border-line-strong")}
                     >
                       {c.name}
                     </button>
@@ -356,7 +367,7 @@ function PotsEditor({ pots, commitments }: { pots: Pot[]; commitments: Commitmen
         ))}
       </div>
       <button
-        className="btn mt-3 bg-panel px-2.5 py-1 text-xs"
+        className="btn mt-3 px-2.5 py-1 text-xs"
         onClick={() =>
           savePot({ id: `pot-${Date.now().toString(36)}`, name: "New pot", jp: "積立", target: 10000, saved: 0, commitmentIds: [], order: pots.length })
         }
@@ -404,8 +415,8 @@ function Chips({ options, selected, onToggle }: { options: string[]; selected: s
           onClick={() => onToggle(m)}
           aria-pressed={selected.includes(m)}
           className={cx(
-            "rounded-full border-2 px-2.5 py-0.5 text-xs font-bold",
-            selected.includes(m) ? "border-line bg-ink text-paper" : "border-line/25",
+            "rounded-full border px-2.5 py-0.5 text-xs font-bold",
+            selected.includes(m) ? "chip-on" : "border-line-strong",
           )}
         >
           {monthLabel(m)} {m.slice(2, 4)}

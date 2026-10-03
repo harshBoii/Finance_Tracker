@@ -8,6 +8,7 @@ export interface Category {
   monthly: number; // budget in a normal month
   tripMonthly?: number | null; // budget in trip months (null = same as monthly)
   isRemainder?: boolean; // "whatever's left under the cap"
+  period?: "week" | "month"; // month = one monthly allowance, kept out of the weekly number
   color: string; // css color token name, e.g. "pink"
 }
 
@@ -19,6 +20,7 @@ export interface IncomeItem {
 }
 
 export interface Plan {
+  version?: number;
   periodStart: string; // YYYY-MM
   periodEnd: string; // YYYY-MM
   openingCash: number;

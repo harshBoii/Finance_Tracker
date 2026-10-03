@@ -2,147 +2,198 @@
 
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
-/* ---------- tokens ---------- */
+/* ---------- tokens: soft pastel "slice-of-life" palette ---------- */
 :root {
-  --paper: #f6f1e6;
-  --panel: #fffdf8;
-  --sunk: #efe9dc;
-  --ink: #141414;
-  --line: #141414;
-  --muted: #5e5966;
-  --dot: rgba(20, 20, 20, 0.14);
-  --pink: #ff2e74;
-  --cyan: #0ea5c9;
-  --yellow: #ffc61a;
-  --red: #e4312b;
-  --green: #17a057;
-  --violet: #7656ff;
-  --skin: #ffe2cc;
-  --hair: #2a2238;
-  --on-accent: #141414;
-  --chart-1: #ff2e74;
-  --chart-2: #7656ff;
+  --bg: #f7f5fb;
+  --panel: #ffffff;
+  --sunk: #f3f0f9;
+  --ink: #2f2a44;
+  --muted: #7b7591;
+  --line: #ebe7f4;
+  --line-strong: #d9d3ea;
+  --glow: rgba(92, 76, 160, 0.16);
+
+  --pink: #ef7aa6;
+  --cyan: #5ba8e6;
+  --violet: #9483f2;
+  --green: #4cc39a;
+  --yellow: #f6c35b;
+  --red: #ef7466;
+  /* darker partners for text on light tints */
+  --pink-ink: #b8456f;
+  --cyan-ink: #2b6fa8;
+  --violet-ink: #5a48c0;
+  --green-ink: #1e7a59;
+  --yellow-ink: #8a6312;
+  --red-ink: #b9443a;
+
+  /* validated chart pair (dataviz validator, light surface) */
+  --chart-1: #e0558f;
+  --chart-2: #7a66e8;
+
+  /* mascot */
+  --fur: #9b6542;
+  --fur-dark: #6e4329;
+  --muzzle: #f6dcc0;
+  --hat: #f48fb5;
+  --hat-dark: #d9628f;
+  --nose: #4a8de0;
+  --antler: #b98a5c;
+  --outline: #3d2f3a;
+
+  --sky-a: #fde4ee;
+  --sky-b: #e2eefe;
   color-scheme: light;
 }
 
 :root[data-theme="dark"] {
-  --paper: #100f16;
-  --panel: #1b1a24;
-  --sunk: #23222e;
-  --ink: #f5f0e5;
-  --line: #ebe4d5;
-  --muted: #a9a3b8;
-  --dot: rgba(245, 240, 229, 0.1);
-  --pink: #ff5c95;
-  --cyan: #3cc9ec;
-  --yellow: #ffd54a;
-  --red: #ff5b4f;
-  --green: #3ccf7e;
-  --violet: #9c86ff;
-  --skin: #ffe2cc;
-  --hair: #2a2238;
-  --on-accent: #141414;
-  --chart-1: #f0457f;
-  --chart-2: #8a72f5;
+  --bg: #17162a;
+  --panel: #211f36;
+  --sunk: #2a2842;
+  --ink: #f1eefb;
+  --muted: #a7a2c2;
+  --line: #34314f;
+  --line-strong: #46426a;
+  --glow: rgba(0, 0, 0, 0.35);
+
+  --pink: #f08cb3;
+  --cyan: #74b8ee;
+  --violet: #a597f6;
+  --green: #5fd0a8;
+  --yellow: #f6cc72;
+  --red: #f3887b;
+  --pink-ink: #ffb3cf;
+  --cyan-ink: #a6d3f7;
+  --violet-ink: #c8bfff;
+  --green-ink: #98e6c8;
+  --yellow-ink: #f8dc9d;
+  --red-ink: #ffb1a6;
+
+  --chart-1: #dc5f94;
+  --chart-2: #8c7bf0;
+
+  --outline: #1d1622;
+  --sky-a: #2a2148;
+  --sky-b: #1b2a46;
   color-scheme: dark;
 }
 
 @theme inline {
-  --color-paper: var(--paper);
+  --color-bg: var(--bg);
   --color-panel: var(--panel);
   --color-sunk: var(--sunk);
   --color-ink: var(--ink);
-  --color-line: var(--line);
   --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
   --color-pink: var(--pink);
   --color-cyan: var(--cyan);
+  --color-violet: var(--violet);
+  --color-green: var(--green);
   --color-yellow: var(--yellow);
   --color-red: var(--red);
-  --color-green: var(--green);
-  --color-violet: var(--violet);
-  --color-on-accent: var(--on-accent);
-  --font-display: var(--font-bangers), "Arial Black", system-ui, sans-serif;
-  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
-  --font-jp: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
+  --color-pink-ink: var(--pink-ink);
+  --color-cyan-ink: var(--cyan-ink);
+  --color-violet-ink: var(--violet-ink);
+  --color-green-ink: var(--green-ink);
+  --color-yellow-ink: var(--yellow-ink);
+  --color-red-ink: var(--red-ink);
+  --font-display: var(--font-rounded), "Hiragino Maru Gothic ProN", system-ui, sans-serif;
+  --font-sans: var(--font-nunito), system-ui, -apple-system, sans-serif;
+  --font-jp: "Hiragino Maru Gothic ProN", "Hiragino Sans", "Yu Gothic", var(--font-rounded), sans-serif;
 }
 
 html {
-  background: var(--paper);
+  background: var(--bg);
   -webkit-tap-highlight-color: transparent;
 }
 
 body {
-  background: var(--paper);
+  background: var(--bg);
   color: var(--ink);
   font-family: var(--font-sans);
-  font-feature-settings: "cv11", "ss01";
+  font-weight: 500;
   overscroll-behavior-y: none;
+}
+
+/* Soft anime-sky wash behind everything (fixed layer, works on iOS too). */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(900px 480px at 0% -8%, var(--sky-a), transparent 65%),
+    radial-gradient(900px 520px at 100% -4%, var(--sky-b), transparent 62%),
+    var(--bg);
 }
 
 /* Component classes live in a layer so Tailwind utilities (bg-*, p-*) can override them. */
 @layer components {
-  /* Numbers: clean, tabular, never the display font. */
   .num {
     font-family: var(--font-sans);
     font-variant-numeric: tabular-nums;
     font-weight: 800;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.015em;
   }
   .num .cur {
     font-weight: 700;
-    font-size: 0.72em;
-    margin-right: 0.04em;
-    vertical-align: 0.08em;
+    font-size: 0.7em;
+    margin-right: 0.05em;
+    vertical-align: 0.1em;
+    opacity: 0.8;
   }
 
   .display {
     font-family: var(--font-display);
-    letter-spacing: 0.04em;
-    font-weight: 400;
-    line-height: 1;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
   }
 
   .jp {
     font-family: var(--font-jp);
-    font-weight: 800;
-    letter-spacing: 0.08em;
+    font-weight: 700;
+    letter-spacing: 0.06em;
   }
 
-  /* ---------- manga panel ---------- */
   .panel {
     position: relative;
     background: var(--panel);
-    border: 2.5px solid var(--line);
-    border-radius: 5px;
-    box-shadow: 4px 4px 0 var(--line);
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    box-shadow:
+      0 10px 28px -16px var(--glow),
+      0 2px 6px -2px var(--glow);
   }
 
-  .halftone {
-    position: relative;
+  /* Soft sakura glow in a card's corner. */
+  .glow {
     isolation: isolate;
+    overflow: hidden;
   }
-  .halftone::before {
+  .glow::before {
     content: "";
     position: absolute;
     inset: 0;
     z-index: -1;
     pointer-events: none;
     border-radius: inherit;
-    background-image: radial-gradient(var(--dot) 1.15px, transparent 1.45px);
-    background-size: 7px 7px;
-    -webkit-mask-image: linear-gradient(135deg, transparent 35%, #000 100%);
-    mask-image: linear-gradient(135deg, transparent 35%, #000 100%);
-  }
-  .halftone-full::before {
-    -webkit-mask-image: none;
-    mask-image: none;
+    background:
+      radial-gradient(260px 160px at 100% 0%, color-mix(in srgb, var(--pink) 14%, transparent), transparent 70%),
+      radial-gradient(220px 140px at 0% 100%, color-mix(in srgb, var(--cyan) 10%, transparent), transparent 70%);
   }
 
-  /* Radial speed lines for milestone moments. */
+  /* Radial speed lines, only for milestone moments. */
   .speedlines {
-    background: repeating-conic-gradient(from 0deg at 50% 50%, var(--line) 0deg 1.4deg, transparent 1.4deg 7deg);
-    -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent 22%, #000 62%);
-    mask-image: radial-gradient(circle at 50% 50%, transparent 22%, #000 62%);
+    background: repeating-conic-gradient(
+      from 0deg at 50% 50%,
+      color-mix(in srgb, var(--violet) 55%, transparent) 0deg 1deg,
+      transparent 1deg 8deg
+    );
+    -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent 24%, #000 70%);
+    mask-image: radial-gradient(circle at 50% 50%, transparent 24%, #000 70%);
   }
 
   .btn {
@@ -150,57 +201,112 @@ body {
     align-items: center;
     justify-content: center;
     gap: 0.4rem;
-    border: 2.5px solid var(--line);
-    border-radius: 5px;
-    box-shadow: 3px 3px 0 var(--line);
-    font-weight: 800;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    background: var(--panel);
+    color: var(--ink);
+    font-weight: 700;
+    box-shadow: 0 2px 8px -4px var(--glow);
     transition:
-      transform 80ms ease,
-      box-shadow 80ms ease;
+      transform 90ms ease,
+      background-color 120ms ease;
     user-select: none;
   }
   .btn:active:not(:disabled) {
-    transform: translate(3px, 3px);
-    box-shadow: 0 0 0 var(--line);
+    transform: scale(0.96);
   }
   .btn:disabled {
     opacity: 0.45;
     box-shadow: none;
   }
+  .btn-primary {
+    border-color: transparent;
+    color: #fff;
+    background: linear-gradient(135deg, var(--pink), var(--violet));
+    box-shadow: 0 8px 18px -8px color-mix(in srgb, var(--pink) 70%, transparent);
+  }
+  .btn-ok {
+    border-color: color-mix(in srgb, var(--green) 45%, transparent);
+    color: var(--green-ink);
+    background: color-mix(in srgb, var(--green) 16%, var(--panel));
+  }
+  .btn-quiet {
+    border-color: transparent;
+    background: var(--sunk);
+    box-shadow: none;
+  }
+
+  .chip {
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    background: var(--panel);
+    font-weight: 700;
+  }
+  .chip-on {
+    border-color: color-mix(in srgb, var(--pink) 55%, transparent);
+    background: color-mix(in srgb, var(--pink) 16%, var(--panel));
+    color: var(--pink-ink);
+  }
 
   .field {
     width: 100%;
     background: var(--panel);
-    border: 2px solid var(--line);
-    border-radius: 5px;
-    padding: 0.55rem 0.7rem;
+    border: 1px solid var(--line-strong);
+    border-radius: 14px;
+    padding: 0.6rem 0.8rem;
     font-weight: 600;
     outline: none;
+    transition: box-shadow 120ms ease;
   }
   .field:focus {
-    box-shadow: 3px 3px 0 var(--pink);
+    border-color: var(--violet);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--violet) 22%, transparent);
   }
 
-  .safe-bottom {
-    padding-bottom: env(safe-area-inset-bottom);
+  .label {
+    display: block;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--muted);
   }
-  .safe-top {
-    padding-top: env(safe-area-inset-top);
+
+  /* Dashboard grid: one column on phones, fills the full width on laptops. */
+  .page-grid {
+    display: grid;
+    gap: 1rem;
+    align-items: start;
   }
+  @media (min-width: 1024px) {
+    .page-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.25rem;
+    }
+  }
+  @media (min-width: 1360px) {
+    .page-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+}
+
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.safe-top {
+  padding-top: env(safe-area-inset-top);
 }
 
 /* ---------- motion ---------- */
 @keyframes pop-in {
   0% {
-    transform: scale(0.85);
+    transform: scale(0.9);
     opacity: 0;
-  }
-  70% {
-    transform: scale(1.04);
-    opacity: 1;
   }
   100% {
     transform: scale(1);
+    opacity: 1;
   }
 }
 @keyframes rise {
@@ -222,7 +328,7 @@ body {
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-4px);
+    transform: translateY(-3px);
   }
 }
 @keyframes wobble {
@@ -231,10 +337,10 @@ body {
     transform: rotate(0);
   }
   25% {
-    transform: rotate(-4deg);
+    transform: rotate(-3deg);
   }
   75% {
-    transform: rotate(4deg);
+    transform: rotate(3deg);
   }
 }
 @keyframes shake {
@@ -242,17 +348,11 @@ body {
   100% {
     transform: translate(0, 0);
   }
-  20% {
-    transform: translate(-2px, 1px);
+  25% {
+    transform: translate(-1.5px, 0);
   }
-  40% {
-    transform: translate(2px, -1px);
-  }
-  60% {
-    transform: translate(-2px, -1px);
-  }
-  80% {
-    transform: translate(2px, 1px);
+  75% {
+    transform: translate(1.5px, 0);
   }
 }
 @keyframes spin-slow {
@@ -260,21 +360,21 @@ body {
     transform: rotate(360deg);
   }
 }
-@keyframes charge {
+@keyframes shimmer {
   from {
-    background-position: 0 0;
+    background-position: -200% 0;
   }
   to {
-    background-position: 28px 0;
+    background-position: 200% 0;
   }
 }
 @keyframes burst {
   0% {
-    transform: scale(0.2) rotate(-20deg);
+    transform: scale(0.3) rotate(-15deg);
     opacity: 0;
   }
-  60% {
-    transform: scale(1.12) rotate(4deg);
+  65% {
+    transform: scale(1.06) rotate(3deg);
     opacity: 1;
   }
   100% {
@@ -284,8 +384,8 @@ body {
 @keyframes twinkle {
   0%,
   100% {
-    opacity: 0.2;
-    transform: scale(0.7);
+    opacity: 0.25;
+    transform: scale(0.75);
   }
   50% {
     opacity: 1;
@@ -298,50 +398,46 @@ body {
     opacity: 1;
   }
   100% {
-    transform: translateY(10px);
+    transform: translateY(8px);
     opacity: 0;
   }
 }
 
 .anim-pop {
-  animation: pop-in 260ms cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+  animation: pop-in 240ms cubic-bezier(0.2, 0.9, 0.3, 1.15) both;
 }
 .anim-rise {
-  animation: rise 220ms cubic-bezier(0.2, 0.9, 0.3, 1) both;
+  animation: rise 240ms cubic-bezier(0.2, 0.9, 0.3, 1) both;
 }
 .anim-fade {
   animation: fade 180ms ease both;
 }
 .anim-bob {
-  animation: bob 2.4s ease-in-out infinite;
+  animation: bob 2.8s ease-in-out infinite;
 }
 .anim-wobble {
-  animation: wobble 1.6s ease-in-out infinite;
+  animation: wobble 1.8s ease-in-out infinite;
   transform-origin: 50% 90%;
 }
 .anim-shake {
-  animation: shake 0.35s linear infinite;
+  animation: shake 0.4s linear infinite;
 }
 .anim-spin-slow {
-  animation: spin-slow 18s linear infinite;
+  animation: spin-slow 30s linear infinite;
 }
 .anim-burst {
-  animation: burst 520ms cubic-bezier(0.2, 0.9, 0.3, 1.3) both;
+  animation: burst 560ms cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
 }
 .anim-twinkle {
-  animation: twinkle 1.4s ease-in-out infinite;
+  animation: twinkle 1.8s ease-in-out infinite;
 }
 .anim-drip {
-  animation: drip 1.2s ease-in infinite;
+  animation: drip 1.4s ease-in infinite;
 }
-.charging {
-  background-image: repeating-linear-gradient(
-    -45deg,
-    rgba(255, 255, 255, 0.35) 0 7px,
-    transparent 7px 14px
-  );
-  background-size: 28px 100%;
-  animation: charge 0.9s linear infinite;
+.shimmer {
+  background-image: linear-gradient(100deg, transparent 30%, rgba(255, 255, 255, 0.55) 50%, transparent 70%);
+  background-size: 200% 100%;
+  animation: shimmer 2.6s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -352,4 +448,8 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 1ms !important;
   }
+}
+
+input[type="checkbox"] {
+  accent-color: var(--pink);
 }

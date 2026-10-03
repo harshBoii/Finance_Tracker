@@ -4,6 +4,9 @@ import { rupees } from "./format";
 
 /* ---------- budgets ---------- */
 
+/** Categories with one monthly allowance (perfume) stay out of the weekly number. */
+export const isMonthly = (c: Category) => c.period === "month";
+
 export const isTripMonth = (plan: Plan, m: string) => plan.tripMonths.includes(m);
 export const capFor = (plan: Plan, m: string) => (isTripMonth(plan, m) ? plan.tripMonthCap : plan.monthlyCap);
 
@@ -196,21 +199,40 @@ export interface WeekStats {
   perCat: CatSpend[];
 }
 
-/** Weekly allowance = monthly budget ÷ weeks in the month the week is measured in. */
+/** Weekly allowance = (monthly cap − monthly-only categories) ÷ weeks in the month. */
 export function weekStats(plan: Plan, expenses: Expense[], day: string, today: string = day): WeekStats {
   const { start, end } = weekOf(day);
   const m = monthOf(day);
   const factor = 7 / daysInMonth(m);
   const budgets = budgetsFor(plan, m);
-  const budget = Math.round(capFor(plan, m) * factor);
-  const spent = spentBetween(expenses, start, end);
-  const perCat = plan.categories.map((cat) => ({
+  const weekly = plan.categories.filter((c) => !isMonthly(c));
+  const monthlyOnly = sum(plan.categories.filter(isMonthly).map((c) => budgets[c.id] ?? 0));
+  const budget = Math.round((capFor(plan, m) - monthlyOnly) * factor);
+  const skip = new Set(plan.categories.filter(isMonthly).map((c) => c.id));
+  const spent = sum(
+    expenses.filter((e) => e.date >= start && e.date <= end && !skip.has(e.categoryId)).map((e) => e.amount),
+  );
+  const perCat = weekly.map((cat) => ({
     cat,
     budget: Math.round((budgets[cat.id] ?? 0) * factor),
     spent: spentBetween(expenses, start, end, cat.id),
   }));
   const daysLeft = today > end ? 0 : today < start ? 7 : Math.round((+parseDay(end) - +parseDay(today)) / 864e5) + 1;
   return { start, end, budget, spent, left: budget - spent, daysLeft, perCat };
+}
+
+export interface MonthlyAllowance {
+  cat: Category;
+  month: string;
+  budget: number;
+  spent: number;
+  entries: Expense[];
+}
+
+/** This month's (or any month's) state for a monthly-only category like perfume. */
+export function monthlyAllowance(plan: Plan, expenses: Expense[], cat: Category, m: string): MonthlyAllowance {
+  const entries = expenses.filter((e) => e.categoryId === cat.id && monthOf(e.date) === m);
+  return { cat, month: m, budget: budgetsFor(plan, m)[cat.id] ?? 0, spent: sum(entries.map((e) => e.amount)), entries };
 }
 
 export type Mood = "happy" | "worried" | "dramatic";

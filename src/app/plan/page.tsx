@@ -30,19 +30,19 @@ export default function PlanPage() {
   const months = [...groups.keys()].sort();
 
   return (
-    <div className="mx-auto max-w-2xl space-y-4">
+    <div className="mx-auto w-full max-w-[1600px] space-y-4">
       <PageTitle title="The plan" jp="計画" />
 
       {/* what's already spoken for */}
-      <section className="panel halftone grid grid-cols-3 divide-x-2 divide-line/15 p-0">
+      <section className="panel glow grid grid-cols-3 divide-x divide-line p-0">
         <Cell label="Savings now" jp="貯金">
           <Money value={balance} className="text-xl" />
         </Cell>
         <Cell label="Committed" jp="予定">
-          <Money value={committed} className="text-xl text-pink" />
+          <Money value={committed} className="text-xl text-pink-ink" />
         </Cell>
         <Cell label="After that" jp="残り">
-          <Money value={balance - committed} className={cx("text-xl", balance - committed < 0 && "text-red")} />
+          <Money value={balance - committed} className={cx("text-xl", balance - committed < 0 && "text-red-ink")} />
         </Cell>
       </section>
       <p className="-mt-2 px-1 text-xs font-semibold text-muted">
@@ -51,6 +51,7 @@ export default function PlanPage() {
         <Money value={inPots} className="text-ink" /> of your savings, earmarked and not spendable.
       </p>
 
+      <div className="grid items-start gap-4 lg:grid-cols-3 lg:gap-5">
       <Panel title="Set-aside pots" jp="積立">
         <div className="space-y-4">
           {pots.map((p) => (
@@ -60,25 +61,26 @@ export default function PlanPage() {
       </Panel>
 
       <Panel
+        className="lg:col-span-2"
         title="Checklist"
         jp="買う物"
         right={
           <button
-            className="btn bg-yellow px-2 py-1 text-xs text-on-accent"
+            className="btn px-2 py-1 text-xs btn-primary"
             onClick={() => setEditing(blankCommitment(monthOf(today) < plan.periodStart ? plan.periodStart : monthOf(today), commitments.length))}
           >
             <Plus size={14} strokeWidth={3} /> Add
           </button>
         }
       >
-        <div className="space-y-5">
+        <div className="grid gap-5 xl:grid-cols-2">
           {months.map((m) => (
             <div key={m}>
               <h3 className="mb-1 flex items-center gap-2 text-xs font-extrabold tracking-wider text-muted uppercase">
                 {monthLabel(m, "long")}
                 {m === monthOf(today) && <JpTag>今月</JpTag>}
               </h3>
-              <ul className="divide-y-2 divide-line/10">
+              <ul className="divide-y divide-line">
                 {groups.get(m)!.map((c) => (
                   <ChecklistRow key={c.id} c={c} onEdit={() => setEditing(c)} />
                 ))}
@@ -88,6 +90,7 @@ export default function PlanPage() {
         </div>
       </Panel>
 
+      </div>
       <CommitmentEditor item={editing} onClose={() => setEditing(null)} />
     </div>
   );
@@ -126,7 +129,7 @@ function PotCard({ pot }: { pot: Pot }) {
     <div>
       <div className="mb-1 flex items-baseline gap-2">
         <span className="font-extrabold">{pot.name}</span>
-        <span aria-hidden className="jp text-[10px] text-pink">
+        <span aria-hidden className="jp text-[10px] text-pink-ink">
           {pot.jp}
         </span>
         <span className="ml-auto text-sm font-semibold text-muted">
@@ -145,7 +148,7 @@ function PotCard({ pot }: { pot: Pot }) {
       {!used && (
         <div className="mt-2 flex gap-2">
           {[1000, 2000].map((v) => (
-            <button key={v} className="btn bg-panel px-2 py-1 text-xs whitespace-nowrap" onClick={() => move(v)}>
+            <button key={v} className="btn px-2 py-1 text-xs whitespace-nowrap" onClick={() => move(v)}>
               +{rupeesShort(v)}
             </button>
           ))}
@@ -157,10 +160,10 @@ function PotCard({ pot }: { pot: Pot }) {
             onChange={(e) => setAmt(e.target.value.replace(/\D/g, ""))}
             aria-label={`Amount for ${pot.name}`}
           />
-          <button className="btn bg-violet px-2 py-1 text-xs text-white" disabled={!n} onClick={() => move(n)}>
+          <button className="btn px-2 py-1 text-xs btn-primary" disabled={!n} onClick={() => move(n)}>
             Add
           </button>
-          <button className="btn bg-panel px-2 py-1 text-xs whitespace-nowrap" disabled={!n || pot.saved === 0} onClick={() => move(-n)}>
+          <button className="btn px-2 py-1 text-xs whitespace-nowrap" disabled={!n || pot.saved === 0} onClick={() => move(-n)}>
             Take out
           </button>
         </div>
@@ -193,7 +196,7 @@ function ChecklistRow({ c, onEdit }: { c: Commitment; onEdit: () => void }) {
         <p className={cx("flex min-w-0 flex-1 items-center gap-1 text-sm font-bold", status !== "planned" && "text-muted line-through")}>
           {c.mustPay && <Lock size={13} strokeWidth={3} aria-label="Must pay, can't be skipped" className="shrink-0 text-ink" />}
           <span className="truncate">{c.name}</span>
-          {c.optional && <span className="shrink-0 rounded-[3px] border border-line/40 px-1 text-[9px] font-extrabold uppercase">optional</span>}
+          {c.optional && <span className="shrink-0 rounded-full border border-line-strong px-1 text-[9px] font-extrabold uppercase">optional</span>}
         </p>
         <Money value={multi ? remainingAmt || c.amount * c.months.length : c.amount} className="text-base" />
       </div>
@@ -210,17 +213,17 @@ function ChecklistRow({ c, onEdit }: { c: Commitment; onEdit: () => void }) {
           {status === "planned" && (
             <>
               {!c.mustPay && (
-                <button className="btn bg-panel px-2.5 py-1 text-xs" onClick={skip}>
+                <button className="btn px-2.5 py-1 text-xs" onClick={skip}>
                   Skip
                 </button>
               )}
-              <button className="btn bg-green px-2.5 py-1 text-xs text-on-accent" onClick={() => pay(c, left[0])}>
+              <button className="btn px-2.5 py-1 text-xs btn-ok" onClick={() => pay(c, left[0])}>
                 {multi ? `Pay ${monthLabel(left[0])}` : "Paid"}
               </button>
             </>
           )}
           {status === "skipped" && (
-            <button className="btn bg-panel px-2.5 py-1 text-xs" onClick={() => setSkipped(c, false)}>
+            <button className="btn px-2.5 py-1 text-xs" onClick={() => setSkipped(c, false)}>
               Restore
             </button>
           )}
@@ -240,7 +243,7 @@ function StatusChip({ status }: { status: "planned" | "paid" | "skipped" }) {
     skipped: "bg-sunk text-muted",
   }[status];
   return (
-    <span className={cx("shrink-0 rounded-[3px] border-2 border-line px-1.5 py-0.5 text-center text-[9px] font-extrabold uppercase", style)}>
+    <span className={cx("shrink-0 rounded-full border border-line-strong px-1.5 py-0.5 text-center text-[9px] font-extrabold uppercase", style)}>
       {status}
     </span>
   );

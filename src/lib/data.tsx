@@ -4,6 +4,7 @@ import { createContext, useCallback, useContext, useEffect, useRef, useState, ty
 import { dayKey } from "./dates";
 import { DEMO, demoSnapshot } from "./demo";
 import { applyOp, newId, type Op, type Snapshot } from "./ops";
+import { migratePlan } from "./seed";
 import type { Commitment, Expense, Meta, Plan, Pot, WishItem } from "./types";
 
 export type Status = "loading" | "locked" | "ready" | "error";
@@ -72,6 +73,7 @@ function initial(): DataState {
   const cache = readJSON<Snapshot>(CACHE);
   const queue = readJSON<Op[]>(QUEUE) ?? [];
   if (!cache?.plan) return { ...EMPTY, ...base };
+  cache.plan = migratePlan(cache.plan);
   return { ...queue.reduce(applyOp, cache), ...base, status: "ready", pending: queue.length };
 }
 

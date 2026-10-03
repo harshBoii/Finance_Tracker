@@ -122,7 +122,7 @@ function EditorBody({ item, onClose }: { item: Commitment; onClose: () => void }
       <div className="flex gap-3 pt-2">
         {!isNew && (
           <button
-            className="btn bg-panel px-3 py-2.5 text-red"
+            className="btn px-3 py-2.5 text-red-ink"
             onClick={() => {
               if (confirm(`Delete "${c.name}"?`)) {
                 deleteCommitment(c.id);
@@ -134,7 +134,7 @@ function EditorBody({ item, onClose }: { item: Commitment; onClose: () => void }
             <Trash2 size={18} />
           </button>
         )}
-        <button className="btn flex-1 bg-yellow py-2.5 text-on-accent" onClick={save} disabled={c.amount <= 0}>
+        <button className="btn flex-1 py-2.5 btn-primary" onClick={save} disabled={c.amount <= 0}>
           Save
         </button>
       </div>

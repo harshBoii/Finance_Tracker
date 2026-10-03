@@ -14,29 +14,28 @@ export function MonthPicker({ plan, value, onChange }: { plan: Plan; value: stri
   const i = months.indexOf(value);
   return (
     <div className="flex items-center gap-2">
-      <button className="btn bg-panel p-1.5" disabled={i <= 0} onClick={() => onChange(months[i - 1])} aria-label="Previous month">
-        <ChevronLeft size={18} strokeWidth={3} />
+      <button className="btn p-1.5" disabled={i <= 0} onClick={() => onChange(months[i - 1])} aria-label="Previous month">
+        <ChevronLeft size={18} strokeWidth={2.5} />
       </button>
       <div className="flex flex-1 gap-1 overflow-x-auto">
         {months.map((m) => (
           <button
             key={m}
             onClick={() => onChange(m)}
-            className={`flex-1 rounded-[4px] border-2 px-2 py-1 text-xs font-extrabold ${
-              m === value ? "border-line bg-ink text-paper" : "border-line/25"
-            } ${plan.tripMonths.includes(m) ? "underline decoration-pink decoration-2 underline-offset-2" : ""}`}
+            className={`chip flex-1 px-2 py-1.5 text-xs ${m === value ? "chip-on" : "text-muted"}`}
           >
             {monthLabel(m)}
+            {plan.tripMonths.includes(m) && <span aria-label="trip month"> ✈︎</span>}
           </button>
         ))}
       </div>
       <button
-        className="btn bg-panel p-1.5"
+        className="btn p-1.5"
         disabled={i >= months.length - 1}
         onClick={() => onChange(months[i + 1])}
         aria-label="Next month"
       >
-        <ChevronRight size={18} strokeWidth={3} />
+        <ChevronRight size={18} strokeWidth={2.5} />
       </button>
     </div>
   );

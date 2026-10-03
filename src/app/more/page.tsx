@@ -18,7 +18,7 @@ export default function MorePage() {
         <Link key={n.href} href={n.href} className="panel flex items-center gap-3 px-4 py-3.5 font-extrabold">
           <n.icon size={20} strokeWidth={2.5} />
           {n.label}
-          <span aria-hidden className="jp text-xs text-pink">
+          <span aria-hidden className="jp text-xs text-pink-ink">
             {n.jp}
           </span>
           <ChevronRight size={18} className="ml-auto" />
@@ -26,7 +26,7 @@ export default function MorePage() {
       ))}
       <div className="flex items-center gap-2 pt-4">
         <ThemeToggle />
-        <button className="btn ml-auto bg-panel px-3 py-1.5 text-sm" onClick={lock}>
+        <button className="btn ml-auto px-3 py-1.5 text-sm" onClick={lock}>
           <LogOut size={14} /> Lock
         </button>
       </div>

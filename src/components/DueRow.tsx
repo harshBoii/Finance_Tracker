@@ -23,8 +23,8 @@ export function DueRow({ c, month, paid }: { c: Commitment; month: string; paid:
         aria-label={paid ? `Mark ${c.name} unpaid` : `Mark ${c.name} paid`}
         aria-pressed={paid}
         className={cx(
-          "flex h-7 w-7 shrink-0 items-center justify-center rounded-[4px] border-[2.5px] border-line",
-          paid ? "bg-green text-on-accent" : "bg-panel",
+          "flex h-7 w-7 shrink-0 items-center justify-center rounded-xl border border-line-strong",
+          paid ? "bg-green/18 text-green-ink" : "bg-panel",
         )}
       >
         {paid && <Check size={16} strokeWidth={4} />}

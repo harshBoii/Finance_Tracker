@@ -73,6 +73,37 @@
     {
       "id": "README.md",
       "type": "file"
+    },
+    {
+      "id": "action:edit:1791020077",
+      "type": "action",
+      "meta": {
+        "summary": "Pastel light theme, reindeer-doctor mascot, one-view dashboard, full-width layouts, perfume monthly allowance with EMI"
+      }
+    },
+    {
+      "id": "src/app/globals.css",
+      "type": "file"
+    },
+    {
+      "id": "src/components/Mascot.tsx",
+      "type": "file"
+    },
+    {
+      "id": "src/components/MonthlyAllowanceCard.tsx",
+      "type": "file"
+    },
+    {
+      "id": "src/lib/finance.ts::weekStats",
+      "type": "file"
+    },
+    {
+      "id": "src/lib/seed.ts::migratePlan",
+      "type": "file"
+    },
+    {
+      "id": "src/components/ui.tsx",
+      "type": "file"
     }
   ],
   "edges": [
@@ -165,6 +196,54 @@
       "to": "README.md",
       "rel": "edited",
       "ts": 1791018223
+    },
+    {
+      "from": "action:edit:1791020077",
+      "to": "src/app/globals.css",
+      "rel": "edited",
+      "ts": 1791020077
+    },
+    {
+      "from": "action:edit:1791020077",
+      "to": "src/components/Mascot.tsx",
+      "rel": "edited",
+      "ts": 1791020077
+    },
+    {
+      "from": "action:edit:1791020077",
+      "to": "src/app/page.tsx",
+      "rel": "edited",
+      "ts": 1791020077
+    },
+    {
+      "from": "action:edit:1791020077",
+      "to": "src/components/MonthlyAllowanceCard.tsx",
+      "rel": "edited",
+      "ts": 1791020077
+    },
+    {
+      "from": "action:edit:1791020077",
+      "to": "src/lib/finance.ts::weekStats",
+      "rel": "edited",
+      "ts": 1791020077
+    },
+    {
+      "from": "action:edit:1791020077",
+      "to": "src/lib/seed.ts::migratePlan",
+      "rel": "edited",
+      "ts": 1791020077
+    },
+    {
+      "from": "action:edit:1791020077",
+      "to": "src/components/Shell.tsx",
+      "rel": "edited",
+      "ts": 1791020077
+    },
+    {
+      "from": "action:edit:1791020077",
+      "to": "src/components/ui.tsx",
+      "rel": "edited",
+      "ts": 1791020077
     }
   ],
   "files": {
@@ -215,13 +294,13 @@
     },
     "src/components/Shell.tsx": {
       "last_action": "edited",
-      "last_ts": "2026-10-03T09:03:43.987656+00:00",
-      "edited_count": 1
+      "last_ts": "2026-10-03T09:34:37.844678+00:00",
+      "edited_count": 2
     },
     "src/app/page.tsx": {
       "last_action": "edited",
-      "last_ts": "2026-10-03T09:03:43.987670+00:00",
-      "edited_count": 1
+      "last_ts": "2026-10-03T09:34:37.844617+00:00",
+      "edited_count": 2
     },
     "src/app/plan/page.tsx": {
       "last_action": "edited",
@@ -237,6 +316,36 @@
       "last_action": "edited",
       "last_ts": "2026-10-03T09:03:43.987759+00:00",
       "edited_count": 1
+    },
+    "src/app/globals.css": {
+      "last_action": "edited",
+      "last_ts": "2026-10-03T09:34:37.844475+00:00",
+      "edited_count": 1
+    },
+    "src/components/Mascot.tsx": {
+      "last_action": "edited",
+      "last_ts": "2026-10-03T09:34:37.844576+00:00",
+      "edited_count": 1
+    },
+    "src/components/MonthlyAllowanceCard.tsx": {
+      "last_action": "edited",
+      "last_ts": "2026-10-03T09:34:37.844636+00:00",
+      "edited_count": 1
+    },
+    "src/lib/finance.ts::weekStats": {
+      "last_action": "edited",
+      "last_ts": "2026-10-03T09:34:37.844649+00:00",
+      "edited_count": 1
+    },
+    "src/lib/seed.ts::migratePlan": {
+      "last_action": "edited",
+      "last_ts": "2026-10-03T09:34:37.844666+00:00",
+      "edited_count": 1
+    },
+    "src/components/ui.tsx": {
+      "last_action": "edited",
+      "last_ts": "2026-10-03T09:34:37.845775+00:00",
+      "edited_count": 1
     }
   },
   "actions": [
@@ -250,6 +359,13 @@
     },
     {
       "ts": 1791018224,
+      "kind": "register_edit",
+      "payload": {
+        "kind": "register_edit"
+      }
+    },
+    {
+      "ts": 1791020077,
       "kind": "register_edit",
       "payload": {
         "kind": "register_edit"
@@ -275,6 +391,21 @@
         "src/app/plan/page.tsx",
         "src/app/settings/page.tsx",
         "README.md"
+      ],
+      "scope": "global"
+    },
+    {
+      "ts": 1791020077,
+      "summary": "Pastel light theme, reindeer-doctor mascot, one-view dashboard, full-width layouts, perfume monthly allowance with EMI",
+      "files": [
+        "src/app/globals.css",
+        "src/components/Mascot.tsx",
+        "src/app/page.tsx",
+        "src/components/MonthlyAllowanceCard.tsx",
+        "src/lib/finance.ts::weekStats",
+        "src/lib/seed.ts::migratePlan",
+        "src/components/Shell.tsx",
+        "src/components/ui.tsx"
       ],
       "scope": "global"
     }

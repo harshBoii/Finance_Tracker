@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react";
 import { Delete, Hourglass, StickyNote } from "lucide-react";
 import { useData } from "@/lib/data";
-import { weekStats } from "@/lib/finance";
+import { budgetsFor, isMonthly, spentInMonth, weekStats } from "@/lib/finance";
+import { monthOf } from "@/lib/dates";
 import { rupees, rupeesShort } from "@/lib/format";
 import type { Category } from "@/lib/types";
 import { Money, Sheet, cx, tone } from "./ui";
@@ -74,7 +75,7 @@ function QuickAddBody({ onClose }: { onClose: () => void }) {
   if (pending) {
     return (
       <div className="p-5 pt-6">
-        <p className="jp text-xs text-pink">ちょっと待って</p>
+        <p className="jp text-xs text-pink-ink">ちょっと待って</p>
         <h2 className="display mt-1 text-3xl">Hold up!</h2>
         <p className="mt-2 text-sm font-semibold text-muted">
           <Money value={amount} className="text-ink" /> is over {rupees(plan.wishlistThreshold)}. Was this planned?
@@ -89,10 +90,10 @@ function QuickAddBody({ onClose }: { onClose: () => void }) {
           />
         </label>
         <div className="mt-5 grid gap-3">
-          <button className="btn bg-yellow py-3 text-on-accent" onClick={() => toWishlist(pending)}>
+          <button className="btn py-3 btn-primary" onClick={() => toWishlist(pending)}>
             <Hourglass size={18} strokeWidth={2.5} /> Impulse: wishlist it for {plan.wishlistHours}h
           </button>
-          <button className="btn bg-panel py-3" onClick={() => save(pending)}>
+          <button className="btn py-3" onClick={() => save(pending)}>
             Planned: log it now
           </button>
         </div>
@@ -104,12 +105,12 @@ function QuickAddBody({ onClose }: { onClose: () => void }) {
     <div className="p-4 pt-5">
       <div className="flex items-baseline gap-2 pr-10">
         <span className="display text-xl">Quick add</span>
-        <span aria-hidden className="jp text-xs text-pink">
+        <span aria-hidden className="jp text-xs text-pink-ink">
           記録
         </span>
       </div>
 
-      <div className="mt-2 flex items-center justify-center rounded-[5px] border-[2.5px] border-line bg-sunk py-3">
+      <div className="mt-2 flex items-center justify-center rounded-3xl bg-gradient-to-br from-pink/12 to-violet/12 py-4">
         <span className={cx("num text-[3.2rem] leading-none", !raw && "text-muted/60")} aria-live="polite">
           <span className="cur">₹</span>
           {raw ? Number(raw).toLocaleString("en-IN") : "0"}
@@ -136,20 +137,28 @@ function QuickAddBody({ onClose }: { onClose: () => void }) {
 
       <div className="mt-3 grid grid-cols-3 gap-2">
         {plan.categories.map((cat) => {
+          const monthly = isMonthly(cat);
           const c = week.perCat.find((p) => p.cat.id === cat.id);
-          const left = c ? c.budget - c.spent : 0;
+          const left = monthly
+            ? (budgetsFor(plan, monthOf(today))[cat.id] ?? 0) - spentInMonth(expenses, monthOf(today), cat.id)
+            : c
+              ? c.budget - c.spent
+              : 0;
           return (
             <button
               key={cat.id}
               disabled={amount <= 0}
               onClick={() => pick(cat)}
-              className="btn flex-col gap-0 bg-panel px-1 py-2 text-[13px] leading-tight"
-              style={{ boxShadow: amount > 0 ? `3px 3px 0 ${tone(cat.color)}` : undefined }}
+              className="flex flex-col items-center rounded-2xl border px-1 py-2 text-[13px] leading-tight font-bold transition-transform active:scale-95 disabled:opacity-50"
+              style={{
+                borderColor: `color-mix(in srgb, ${tone(cat.color)} 40%, transparent)`,
+                background: `color-mix(in srgb, ${tone(cat.color)} 12%, var(--panel))`,
+              }}
             >
               <span className="text-xl">{cat.emoji}</span>
               <span className="truncate">{cat.name}</span>
-              <span className={cx("text-[10px] font-semibold", left < 0 ? "text-red" : "text-muted")}>
-                {rupeesShort(left)} left/wk
+              <span className={cx("text-[10px] font-semibold", left < 0 ? "text-red-ink" : "text-muted")}>
+                {rupeesShort(left)} left/{monthly ? "mo" : "wk"}
               </span>
             </button>
           );
@@ -162,7 +171,7 @@ function QuickAddBody({ onClose }: { onClose: () => void }) {
             key={k}
             onClick={() => press(k)}
             aria-label={k === "del" ? "Delete digit" : k}
-            className="num flex h-12 items-center justify-center rounded-[5px] border-2 border-line/25 bg-sunk text-xl active:bg-yellow active:text-on-accent"
+            className="num flex h-12 items-center justify-center rounded-2xl bg-sunk text-xl active:bg-pink/20"
           >
             {k === "del" ? <Delete size={22} /> : k}
           </button>

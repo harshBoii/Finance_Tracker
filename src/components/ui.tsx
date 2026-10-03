@@ -17,20 +17,20 @@ export function Panel({
   right,
   children,
   className,
-  dots = true,
+  glow = false,
 }: {
   title?: ReactNode;
   jp?: string;
   right?: ReactNode;
   children: ReactNode;
   className?: string;
-  dots?: boolean;
+  glow?: boolean;
 }) {
   return (
-    <section className={cx("panel p-4", dots && "halftone", className)}>
+    <section className={cx("panel p-4 sm:p-5", glow && "glow", className)}>
       {(title || jp || right) && (
         <header className="mb-3 flex items-center gap-2">
-          {title && <h2 className="display text-[1.35rem]">{title}</h2>}
+          {title && <h2 className="display text-[1.05rem]">{title}</h2>}
           {jp && <JpTag>{jp}</JpTag>}
           {right && <div className="ml-auto">{right}</div>}
         </header>
@@ -42,10 +42,7 @@ export function Panel({
 
 export function JpTag({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <span
-      aria-hidden
-      className={cx("jp rounded-[3px] bg-ink px-1.5 py-0.5 text-[10px] leading-none text-paper", className)}
-    >
+    <span aria-hidden className={cx("jp rounded-full bg-pink/12 px-2 py-0.5 text-[10px] leading-none text-pink-ink", className)}>
       {children}
     </span>
   );
@@ -64,12 +61,12 @@ export function Money({ value, className, signed }: { value: number; className?:
   );
 }
 
-/** Outlined progress bar. Over 100% turns red with a striped overflow. */
+/** Soft rounded progress bar. Over 100% turns coral with gentle stripes. */
 export function Bar({
   value,
   max,
   color = "pink",
-  height = 14,
+  height = 10,
   className,
 }: {
   value: number;
@@ -82,20 +79,19 @@ export function Bar({
   const over = pct > 1;
   return (
     <div
-      className={cx("relative overflow-hidden rounded-[4px] border-2 border-line bg-sunk", className)}
+      className={cx("relative overflow-hidden rounded-full bg-sunk", className)}
       style={{ height }}
       role="progressbar"
       aria-valuenow={Math.round(value)}
       aria-valuemax={Math.round(max)}
     >
       <div
-        className="h-full border-r-2 border-line transition-[width] duration-500 ease-out"
+        className="h-full rounded-full transition-[width] duration-500 ease-out"
         style={{
           width: `${Math.min(100, pct * 100)}%`,
           background: over
-            ? "repeating-linear-gradient(-45deg, var(--red) 0 6px, color-mix(in srgb, var(--red) 70%, #000) 6px 12px)"
+            ? "repeating-linear-gradient(-45deg, var(--red) 0 6px, color-mix(in srgb, var(--red) 75%, #fff) 6px 12px)"
             : tone(color),
-          borderRightWidth: pct >= 1 || pct === 0 ? 0 : 2,
         }}
       />
     </div>
@@ -122,14 +118,15 @@ export function Sheet({
   if (!open) return null;
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center md:items-center" role="dialog" aria-label={label}>
-      <button aria-label="Close" className="anim-fade absolute inset-0 bg-black/45" onClick={onClose} />
-      <div className="anim-rise safe-bottom relative max-h-[92dvh] w-full max-w-lg overflow-y-auto rounded-t-[10px] border-[2.5px] border-b-0 border-line bg-panel md:rounded-[8px] md:border-b-[2.5px] md:shadow-[6px_6px_0_var(--line)]">
+      <button aria-label="Close" className="anim-fade absolute inset-0 bg-[#2f2a44]/30 backdrop-blur-[2px]" onClick={onClose} />
+      <div className="anim-rise safe-bottom relative max-h-[92dvh] w-full max-w-lg overflow-y-auto rounded-t-[28px] bg-panel shadow-[0_-10px_40px_-10px_var(--glow)] md:rounded-[28px]">
+        <div className="mx-auto mt-2 h-1.5 w-10 rounded-full bg-line-strong md:hidden" />
         <button
           onClick={onClose}
           aria-label="Close"
-          className="absolute top-3 right-3 z-10 rounded-full border-2 border-line bg-panel p-1"
+          className="absolute top-3 right-3 z-10 rounded-full bg-sunk p-1.5 text-muted"
         >
-          <X size={16} strokeWidth={3} />
+          <X size={16} strokeWidth={2.5} />
         </button>
         {children}
       </div>
@@ -138,17 +135,47 @@ export function Sheet({
 }
 
 export function Empty({ children }: { children: ReactNode }) {
-  return <p className="rounded-[4px] border-2 border-dashed border-line/40 p-4 text-center text-sm text-muted">{children}</p>;
+  return <p className="rounded-2xl border border-dashed border-line-strong p-4 text-center text-sm text-muted">{children}</p>;
 }
 
 export function PageTitle({ title, jp, sub }: { title: string; jp: string; sub?: ReactNode }) {
   return (
-    <div className="mb-4 flex items-end gap-3">
-      <h1 className="display text-[2.4rem] leading-none">{title}</h1>
-      <span aria-hidden className="jp mb-1 text-lg text-pink">
+    <div className="mb-4 flex items-end gap-2.5">
+      <h1 className="display text-[1.9rem] leading-none">{title}</h1>
+      <span aria-hidden className="jp mb-0.5 text-sm text-pink-ink">
         {jp}
       </span>
-      {sub && <div className="mb-1 ml-auto text-right text-xs font-semibold text-muted">{sub}</div>}
+      {sub && <div className="mb-0.5 ml-auto text-right text-xs font-semibold text-muted">{sub}</div>}
+    </div>
+  );
+}
+
+/** Small label + big number tile. */
+export function Stat({
+  label,
+  jp,
+  children,
+  sub,
+  className,
+}: {
+  label: string;
+  jp?: string;
+  children: ReactNode;
+  sub?: ReactNode;
+  className?: string;
+}) {
+  return (
+    <div className={cx("panel p-3.5 sm:p-4", className)}>
+      <p className="label flex items-center gap-1.5">
+        {label}
+        {jp && (
+          <span aria-hidden className="jp hidden text-[9px] tracking-normal normal-case text-pink-ink sm:inline">
+            {jp}
+          </span>
+        )}
+      </p>
+      <div className="mt-1">{children}</div>
+      {sub && <div className="mt-1 text-[11px] font-semibold text-muted">{sub}</div>}
     </div>
   );
 }

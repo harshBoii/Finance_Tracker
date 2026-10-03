@@ -129,7 +129,7 @@ export function ProjectionChart({ rows, goal }: { rows: ProjectionRow[]; goal: n
           >
             <p className="mb-1 font-extrabold">
               End of {monthLabel(s.month, "long")}
-              {s.when === "past" ? "" : s.when === "current" ? " (now)" : ""}
+              {s.when === "past" ? "" : s.when === "current" ? "(now)" : ""}
             </p>
             {SERIES.map((sr) => (
               <p key={sr.key} className="flex items-center gap-1.5 font-semibold text-muted">

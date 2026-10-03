@@ -2,8 +2,8 @@ import type { Mood } from "@/lib/finance";
 import { cx } from "./ui";
 
 /**
- * "Kobi", an original chibi coin-keeper in a pink hoodie.
- * happy = under budget, worried = getting close, dramatic = over.
+ * Chibi reindeer doctor (fan art, personal use): pink top hat with a white X, antlers, blue nose.
+ * happy = under budget, worried = getting close, dramatic = over (waterfall tears).
  */
 export function Mascot({ mood, size = 96, className }: { mood: Mood; size?: number; className?: string }) {
   const anim = mood === "happy" ? "anim-bob" : mood === "worried" ? "anim-wobble" : "anim-shake";
@@ -16,48 +16,20 @@ export function Mascot({ mood, size = 96, className }: { mood: Mood; size?: numb
       role="img"
       aria-label={`Mascot looks ${mood}`}
     >
-      <g stroke="var(--line)" strokeWidth={3} strokeLinejoin="round" strokeLinecap="round">
-        {/* feet */}
-        <ellipse cx="47" cy="122" rx="9" ry="5" fill="var(--hair)" />
-        <ellipse cx="73" cy="122" rx="9" ry="5" fill="var(--hair)" />
-        {/* hoodie body */}
-        <path d="M33 98 Q35 84 60 84 Q85 84 87 98 L90 118 Q60 125 30 118 Z" fill="var(--pink)" />
-        {/* coin emblem */}
-        <circle cx="60" cy="104" r="9" fill="var(--yellow)" strokeWidth={2.5} />
-        <text
-          x="60"
-          y="108.5"
-          textAnchor="middle"
-          fontSize="12"
-          fontWeight="900"
-          fill="var(--on-accent)"
-          stroke="none"
-          fontFamily="system-ui"
-        >
-          ₹
-        </text>
-        {/* arms */}
-        {mood === "dramatic" ? (
-          <>
-            <path d="M34 96 Q20 86 22 72" fill="none" />
-            <path d="M86 96 Q100 86 98 72" fill="none" />
-          </>
-        ) : (
-          <>
-            <path d="M35 98 Q26 104 28 112" fill="none" />
-            <path d="M85 98 Q94 104 92 112" fill="none" />
-          </>
-        )}
+      <Antlers />
+      <Body raised={mood === "dramatic"} />
+
+      <g stroke="var(--outline)" strokeWidth={2.4} strokeLinejoin="round">
+        {/* ears */}
+        <path d="M34 62 Q18 53 11 59 Q19 69 35 71 Z" fill="var(--fur)" />
+        <path d="M86 62 Q102 53 109 59 Q101 69 85 71 Z" fill="var(--fur)" />
+        <path d="M31 64 Q21 59 17 61 Q23 66 31 67 Z" fill="var(--muzzle)" strokeWidth={0} />
+        <path d="M89 64 Q99 59 103 61 Q97 66 89 67 Z" fill="var(--muzzle)" strokeWidth={0} />
         {/* head */}
-        <circle cx="60" cy="55" r="38" fill="var(--skin)" />
-        {/* hair */}
-        <path
-          d="M22 58 Q19 18 60 16 Q101 18 98 58 Q94 42 82 37 Q80 47 69 45 Q67 37 59 36 Q53 47 43 43 Q41 37 35 40 Q26 46 22 58 Z"
-          fill="var(--hair)"
-        />
-        {/* ahoge */}
-        <path d="M60 17 Q64 3 77 6 Q67 9 64 18" fill="var(--hair)" strokeWidth={2.5} />
+        <ellipse cx="60" cy="69" rx="29" ry="27" fill="var(--fur)" />
       </g>
+
+      <Hat />
 
       {mood === "happy" && <HappyFace />}
       {mood === "worried" && <WorriedFace />}
@@ -66,28 +38,113 @@ export function Mascot({ mood, size = 96, className }: { mood: Mood; size?: numb
   );
 }
 
+const ANTLER = [
+  "M36 46 C30 37 23 30 15 22",
+  "M23 31 C19 30 14 31 9 33",
+  "M18 26 C18 20 16 15 12 10",
+];
+
+function Antlers() {
+  const mirror = (d: string) => d.replace(/(-?\d+(?:\.\d+)?) (-?\d+(?:\.\d+)?)/g, (_, x, y) => `${120 - Number(x)} ${y}`);
+  const all = [...ANTLER, ...ANTLER.map(mirror)];
+  return (
+    <g fill="none" strokeLinecap="round" strokeLinejoin="round">
+      {all.map((d) => (
+        <path key={`o${d}`} d={d} stroke="var(--outline)" strokeWidth={7.5} />
+      ))}
+      {all.map((d) => (
+        <path key={`f${d}`} d={d} stroke="var(--antler)" strokeWidth={4.2} />
+      ))}
+    </g>
+  );
+}
+
+function Hat() {
+  return (
+    <g stroke="var(--outline)" strokeWidth={2.4} strokeLinejoin="round">
+      <path d="M33 47 C31 29 32 5 60 3 C88 5 89 29 87 47 Z" fill="var(--hat)" />
+      <path d="M40 40 C38 26 40 14 48 9" fill="none" stroke="#fff" strokeOpacity={0.55} strokeWidth={3} strokeLinecap="round" />
+      <ellipse cx="60" cy="47" rx="32" ry="6" fill="var(--hat-dark)" />
+      {/* white X */}
+      <g fill="#fff" strokeWidth={1.6}>
+        <rect x="51" y="22.5" width="18" height="5.5" rx="2.75" transform="rotate(45 60 25.25)" />
+        <rect x="51" y="22.5" width="18" height="5.5" rx="2.75" transform="rotate(-45 60 25.25)" />
+      </g>
+    </g>
+  );
+}
+
+function Body({ raised }: { raised: boolean }) {
+  return (
+    <g stroke="var(--outline)" strokeWidth={2.4} strokeLinejoin="round">
+      <ellipse cx="50" cy="122" rx="6.5" ry="3.8" fill="var(--fur-dark)" />
+      <ellipse cx="70" cy="122" rx="6.5" ry="3.8" fill="var(--fur-dark)" />
+      <ellipse cx="60" cy="105" rx="19" ry="15" fill="var(--fur)" />
+      <path d="M42 107 Q60 101 78 107 L79 116 Q70 120 62 116 L58 116 Q50 120 41 116 Z" fill="var(--violet)" />
+      {raised ? (
+        <>
+          <path d="M43 98 Q33 90 31 80" fill="none" stroke="var(--fur)" strokeWidth={7} strokeLinecap="round" />
+          <path d="M77 98 Q87 90 89 80" fill="none" stroke="var(--fur)" strokeWidth={7} strokeLinecap="round" />
+          <circle cx="31" cy="79" r="3.6" fill="var(--fur-dark)" />
+          <circle cx="89" cy="79" r="3.6" fill="var(--fur-dark)" />
+        </>
+      ) : (
+        <>
+          <ellipse cx="41" cy="104" rx="5" ry="7.5" fill="var(--fur)" transform="rotate(25 41 104)" />
+          <ellipse cx="79" cy="104" rx="5" ry="7.5" fill="var(--fur)" transform="rotate(-25 79 104)" />
+          <circle cx="38" cy="110" r="3" fill="var(--fur-dark)" />
+          <circle cx="82" cy="110" r="3" fill="var(--fur-dark)" />
+        </>
+      )}
+    </g>
+  );
+}
+
+function Nose() {
+  return (
+    <g>
+      <ellipse cx="60" cy="78" rx="6.6" ry="4.8" fill="var(--nose)" stroke="var(--outline)" strokeWidth={2} />
+      <ellipse cx="57.8" cy="76.6" rx="2.1" ry="1.2" fill="#fff" opacity={0.75} />
+    </g>
+  );
+}
+
+function Eyes({ small = false }: { small?: boolean }) {
+  return (
+    <g>
+      {[48, 72].map((x) => (
+        <g key={x}>
+          <ellipse cx={x} cy="66" rx="5.6" ry="7" fill="#1d1620" />
+          <circle cx={x + 2} cy="63" r={small ? 1.6 : 2.4} fill="#fff" />
+          <circle cx={x - 2} cy="69.5" r={small ? 0.8 : 1.2} fill="#fff" />
+        </g>
+      ))}
+    </g>
+  );
+}
+
 function Blush() {
   return (
-    <g fill="var(--pink)" opacity={0.45}>
-      <ellipse cx="37" cy="71" rx="6" ry="3.5" />
-      <ellipse cx="83" cy="71" rx="6" ry="3.5" />
+    <g fill="var(--pink)" opacity={0.5}>
+      <ellipse cx="38" cy="77" rx="5.5" ry="3" />
+      <ellipse cx="82" cy="77" rx="5.5" ry="3" />
     </g>
   );
 }
 
 function HappyFace() {
   return (
-    <g stroke="var(--line)" strokeLinecap="round" strokeLinejoin="round">
+    <g strokeLinecap="round" strokeLinejoin="round">
       <Blush />
-      <path d="M38 62 Q45 52 52 62" fill="none" strokeWidth={3.5} />
-      <path d="M68 62 Q75 52 82 62" fill="none" strokeWidth={3.5} />
-      <path d="M51 72 Q60 84 69 72 Z" fill="#c43150" strokeWidth={2.5} />
-      <g fill="var(--yellow)" strokeWidth={1.8}>
-        <path className="anim-twinkle" d="M104 26 l2.5 6 6 2.5 -6 2.5 -2.5 6 -2.5 -6 -6 -2.5 6 -2.5 Z" />
+      <Eyes />
+      <Nose />
+      <path d="M52 84 Q60 94 68 84 Q60 87 52 84 Z" fill="#c2405f" stroke="var(--outline)" strokeWidth={1.8} />
+      <g fill="var(--yellow)" stroke="var(--outline)" strokeWidth={1.2}>
+        <path className="anim-twinkle" d="M106 34 l2.2 5 5 2.2 -5 2.2 -2.2 5 -2.2 -5 -5 -2.2 5 -2.2 Z" />
         <path
           className="anim-twinkle"
-          style={{ animationDelay: "0.6s" }}
-          d="M14 30 l2 4.5 4.5 2 -4.5 2 -2 4.5 -2 -4.5 -4.5 -2 4.5 -2 Z"
+          style={{ animationDelay: "0.7s" }}
+          d="M12 44 l1.8 4 4 1.8 -4 1.8 -1.8 4 -1.8 -4 -4 -1.8 4 -1.8 Z"
         />
       </g>
     </g>
@@ -96,64 +153,36 @@ function HappyFace() {
 
 function WorriedFace() {
   return (
-    <g stroke="var(--line)" strokeLinecap="round" strokeLinejoin="round">
+    <g stroke="var(--outline)" strokeLinecap="round" strokeLinejoin="round">
       <Blush />
-      {/* brows, inner ends raised */}
-      <path d="M37 50 L50 46" strokeWidth={3} />
-      <path d="M83 50 L70 46" strokeWidth={3} />
-      <ellipse cx="45" cy="61" rx="6.5" ry="8" fill="#fff" strokeWidth={2.5} />
-      <ellipse cx="75" cy="61" rx="6.5" ry="8" fill="#fff" strokeWidth={2.5} />
-      <circle cx="47" cy="63" r="3.6" fill="var(--hair)" stroke="none" />
-      <circle cx="77" cy="63" r="3.6" fill="var(--hair)" stroke="none" />
-      <circle cx="48.2" cy="61.6" r="1.2" fill="#fff" stroke="none" />
-      <circle cx="78.2" cy="61.6" r="1.2" fill="#fff" stroke="none" />
-      <path d="M51 78 q3 -4 6 0 t6 0 t6 0" fill="none" strokeWidth={2.5} />
-      {/* sweat drop */}
-      <path className="anim-drip" d="M95 38 Q101 47 95 50 Q89 47 95 38 Z" fill="var(--cyan)" strokeWidth={2} />
+      <path d="M42 57 L53 54" strokeWidth={2.4} />
+      <path d="M78 57 L67 54" strokeWidth={2.4} />
+      <Eyes small />
+      <Nose />
+      <path d="M52 88 q2 -3 4 0 t4 0 t4 0 t4 0" fill="none" strokeWidth={2} />
+      <path className="anim-drip" d="M93 52 Q99 61 93 64 Q87 61 93 52 Z" fill="var(--cyan)" strokeWidth={1.6} />
     </g>
   );
 }
 
 function DramaticFace() {
   return (
-    <g stroke="var(--line)" strokeLinecap="round" strokeLinejoin="round">
-      {/* gloom lines */}
-      <g stroke="var(--violet)" strokeWidth={2} opacity={0.75}>
-        <path d="M40 30 V44" />
-        <path d="M48 27 V42" />
-        <path d="M56 26 V40" />
-        <path d="M64 26 V40" />
-        <path d="M72 27 V42" />
-        <path d="M80 30 V44" />
-      </g>
-      <path d="M36 47 L50 52" strokeWidth={3} />
-      <path d="M84 47 L70 52" strokeWidth={3} />
-      <circle cx="45" cy="61" r="8.5" fill="#fff" strokeWidth={2.5} />
-      <circle cx="75" cy="61" r="8.5" fill="#fff" strokeWidth={2.5} />
-      <circle cx="45" cy="61" r="1.8" fill="var(--hair)" stroke="none" />
-      <circle cx="75" cy="61" r="1.8" fill="var(--hair)" stroke="none" />
+    <g stroke="var(--outline)" strokeLinecap="round" strokeLinejoin="round">
+      {/* > < squeezed eyes */}
+      <path d="M43 61 L53 66 L43 71" fill="none" strokeWidth={3} />
+      <path d="M77 61 L67 66 L77 71" fill="none" strokeWidth={3} />
       {/* waterfall tears */}
-      <path d="M40 69 Q37 82 40 96" fill="none" stroke="var(--cyan)" strokeWidth={4.5} />
-      <path d="M80 69 Q83 82 80 96" fill="none" stroke="var(--cyan)" strokeWidth={4.5} />
-      <ellipse cx="60" cy="80" rx="7" ry="9" fill="#7a1f33" strokeWidth={2.5} />
-      <text
-        x="104"
-        y="22"
-        fontSize="20"
-        fontWeight="900"
-        fill="var(--red)"
-        stroke="var(--line)"
-        strokeWidth={1}
-        fontFamily="system-ui"
-      >
-        !!
-      </text>
+      <path d="M45 72 Q41 86 44 104" fill="none" stroke="var(--cyan)" strokeWidth={5.5} opacity={0.9} />
+      <path d="M75 72 Q79 86 76 104" fill="none" stroke="var(--cyan)" strokeWidth={5.5} opacity={0.9} />
+      <Nose />
+      <ellipse cx="60" cy="89" rx="7.5" ry="6.5" fill="#7a1f33" strokeWidth={2} />
+      <ellipse cx="60" cy="92.5" rx="4" ry="2.2" fill="#e5788f" stroke="none" />
     </g>
   );
 }
 
 export const moodLine: Record<Mood, string> = {
-  happy: "Under budget! Keep it up~",
-  worried: "Eek… we're getting close.",
-  dramatic: "NOOO! We're over budget!!",
+  happy: "Under budget! Doctor's orders: keep it up~",
+  worried: "Eek… we're getting close!",
+  dramatic: "WAAAH! We're over budget!!",
 };

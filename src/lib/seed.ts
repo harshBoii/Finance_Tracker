@@ -1,9 +1,22 @@
 import type { Commitment, Plan, Pot } from "./types";
 import { dayKey, monthRange } from "./dates";
 
+export const PLAN_VERSION = 2;
+
+/** Brings a stored plan up to date. v2: perfume is a monthly allowance, not weekly. */
+export function migratePlan(plan: Plan): Plan {
+  if ((plan.version ?? 1) >= PLAN_VERSION) return plan;
+  return {
+    ...plan,
+    version: PLAN_VERSION,
+    categories: plan.categories.map((c) => (c.id === "perfume" && !c.period ? { ...c, period: "month" as const } : c)),
+  };
+}
+
 /** The Oct 2026 → Mar 2027 plan, written on first login. Everything is editable in Settings. */
 export function seedPlan(today: string = dayKey()): Plan {
   return {
+    version: PLAN_VERSION,
     periodStart: "2026-10",
     periodEnd: "2027-03",
     openingCash: 39000,
@@ -26,7 +39,7 @@ export function seedPlan(today: string = dayKey()): Plan {
       { id: "meat", name: "Meat", jp: "肉", emoji: "🍗", monthly: 2500, color: "red" },
       { id: "stay", name: "Monthly stay", jp: "宿", emoji: "🏠", monthly: 5000, tripMonthly: 0, color: "violet" },
       { id: "petrol", name: "Petrol", jp: "油", emoji: "⛽", monthly: 500, color: "yellow" },
-      { id: "perfume", name: "Perfumes", jp: "香", emoji: "🧴", monthly: 1500, color: "cyan" },
+      { id: "perfume", name: "Perfumes", jp: "香", emoji: "🧴", monthly: 1500, color: "cyan", period: "month" },
       { id: "fun", name: "Fun / impulse", jp: "遊", emoji: "🎮", monthly: 0, isRemainder: true, color: "pink" },
     ],
     monthlyCap: 14000,

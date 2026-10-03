@@ -25,10 +25,11 @@ export default function ProjectionPage() {
     .reduce((a, c) => a + remainingPayments(c).length * c.amount, 0);
 
   return (
-    <div className="mx-auto max-w-2xl space-y-4">
+    <div className="mx-auto w-full max-w-[1600px] space-y-4">
       <PageTitle title="Future" jp="未来" sub={`to end of ${monthLabel(plan.periodEnd, "long")}`} />
 
-      <section className="panel halftone p-4">
+      <div className="page-grid">
+      <section className="panel glow p-4">
         <p className="text-[11px] font-extrabold tracking-wide text-muted uppercase">Projected savings by {monthLabel(plan.periodEnd)}</p>
         <Money value={end.projected} className="block text-[3rem] leading-tight" />
         <div className="mt-1 flex flex-wrap gap-2 text-xs font-bold">
@@ -36,7 +37,7 @@ export default function ProjectionPage() {
             {vsGoal >= 0 ? `${rupees(vsGoal)} above` : `${rupees(-vsGoal)} short of`} the {rupees(plan.goal)} goal
           </Pill>
           {Math.abs(vsPlan) < 1 ? (
-            <span className="rounded-[4px] border-2 border-line bg-panel px-2 py-0.5">● Exactly on plan</span>
+            <span className="rounded-xl border border-line-strong bg-panel px-2 py-0.5">● Exactly on plan</span>
           ) : (
             <Pill good={vsPlan > 0}>
               {vsPlan > 0 ? `${rupees(vsPlan)} ahead of` : `${rupees(-vsPlan)} behind`} plan
@@ -49,7 +50,7 @@ export default function ProjectionPage() {
         </p>
       </section>
 
-      <Panel title="Savings arc" jp="軌跡" dots={false}>
+      <Panel title="Savings arc" jp="軌跡" className="lg:col-span-2 xl:row-span-2">
         <ProjectionChart rows={rows} goal={plan.goal} />
         <button className="mt-2 text-xs font-bold underline" onClick={() => setTable((t) => !t)}>
           {table ? "Hide" : "Show"} as table
@@ -66,7 +67,7 @@ export default function ProjectionPage() {
             </thead>
             <tbody className="num">
               {rows.map((r) => (
-                <tr key={r.month} className="border-t border-line/10">
+                <tr key={r.month} className="border-t border-line">
                   <td className="py-1 text-left font-bold">{monthLabel(r.month)}</td>
                   <td>{rupees(r.projected)}</td>
                   <td>{rupees(r.plan)}</td>
@@ -93,18 +94,19 @@ export default function ProjectionPage() {
       {skippedTotal > 0 && (
         <Panel title="Skipped wins" jp="勝利">
           <p className="text-sm font-semibold">
-            Skipping planned buys added <Money value={skippedTotal} className="text-green" /> to this projection.
+            Skipping planned buys added <Money value={skippedTotal} className="text-green-ink" /> to this projection.
           </p>
         </Panel>
       )}
+      </div>
     </div>
   );
 }
 
 function Pill({ good, children }: { good: boolean; children: React.ReactNode }) {
   return (
-    <span className={cx("rounded-[4px] border-2 border-line px-2 py-0.5", good ? "bg-green text-on-accent" : "bg-red text-white")}>
-      {good ? "▲ " : "▼ "}
+    <span className={cx("rounded-xl border border-line-strong px-2 py-0.5", good ? "bg-green/18 text-green-ink" : "bg-red text-white")}>
+      {good ? "▲" : "▼"}
       {children}
     </span>
   );
@@ -114,7 +116,7 @@ function Cost({ label, value }: { label: string; value: number }) {
   return (
     <li className="flex items-center gap-3">
       <span className="flex-1 text-sm font-bold">{label}</span>
-      <Money value={-value} className="text-lg text-red" />
+      <Money value={-value} className="text-lg text-red-ink" />
     </li>
   );
 }

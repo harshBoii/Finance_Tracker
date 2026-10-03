@@ -11,7 +11,7 @@ import {
   Home,
   Hourglass,
   ListChecks,
-  LogOut,
+  Lock,
   Plus,
   Settings,
   Sparkles,
@@ -44,9 +44,9 @@ function Gate({ children }: { children: ReactNode }) {
   if (status === "locked") return <Unlock />;
   if (status === "error")
     return (
-      <Splash text="Couldn't load your data">
+      <Splash text="Couldn't load your data" mood="worried">
         <p className="max-w-xs text-center text-sm font-semibold text-muted">{error}</p>
-        <button className="btn bg-yellow px-4 py-2 text-on-accent" onClick={() => location.reload()}>
+        <button className="btn btn-primary px-5 py-2" onClick={() => location.reload()}>
           Try again
         </button>
       </Splash>
@@ -55,11 +55,19 @@ function Gate({ children }: { children: ReactNode }) {
   return <Frame>{children}</Frame>;
 }
 
-function Splash({ text = "Loading…", children }: { text?: string; children?: ReactNode }) {
+function Splash({
+  text = "Loading…",
+  mood = "happy",
+  children,
+}: {
+  text?: string;
+  mood?: "happy" | "worried";
+  children?: ReactNode;
+}) {
   return (
     <div className="flex min-h-dvh flex-col items-center justify-center gap-3 p-6">
-      <Mascot mood={children ? "worried" : "happy"} size={88} />
-      <p className="display text-xl">{text}</p>
+      <Mascot mood={mood} size={96} />
+      <p className="display text-lg">{text}</p>
       {children}
     </div>
   );
@@ -81,12 +89,12 @@ function Unlock() {
 
   return (
     <main className="safe-top flex min-h-dvh items-center justify-center p-4">
-      <form onSubmit={submit} className="panel halftone anim-pop w-full max-w-sm p-6 text-center">
+      <form onSubmit={submit} className="panel glow anim-pop w-full max-w-sm p-7 text-center">
         <div className="flex justify-center">
-          <Mascot mood={error ? "worried" : "happy"} size={120} />
+          <Mascot mood={error ? "worried" : "happy"} size={124} />
         </div>
-        <h1 className="display mt-2 text-5xl">Kakeibo</h1>
-        <p aria-hidden className="jp text-pink">
+        <h1 className="display mt-3 text-3xl">Kakeibo</h1>
+        <p aria-hidden className="jp text-sm text-pink-ink">
           家計簿
         </p>
         <input
@@ -100,17 +108,17 @@ function Unlock() {
           onChange={(e) => setPw(e.target.value)}
           autoFocus
         />
-        <button className="btn mt-3 w-full bg-yellow py-3 text-on-accent" disabled={!pw || busy}>
+        <button className="btn btn-primary mt-3 w-full py-3" disabled={!pw || busy}>
           {busy ? "Unlocking…" : "Unlock"}
         </button>
-        {error && <p className="mt-3 text-sm font-semibold text-red">{error}</p>}
+        {error && <p className="mt-3 text-sm font-semibold text-red-ink">{error}</p>}
       </form>
     </main>
   );
 }
 
 const NAV = [
-  { href: "/", label: "Week", jp: "今週", icon: Home },
+  { href: "/", label: "Home", jp: "今週", icon: Home },
   { href: "/month", label: "Month", jp: "今月", icon: CalendarDays },
   { href: "/plan", label: "Plan", jp: "計画", icon: ListChecks },
   { href: "/projection", label: "Future", jp: "未来", icon: ChartLine },
@@ -130,17 +138,18 @@ function Frame({ children }: { children: ReactNode }) {
   const moreActive = !MOBILE.some(active);
 
   return (
-    <div className="mx-auto flex min-h-dvh max-w-6xl">
+    <div className="flex min-h-dvh">
       <MilestoneWatcher />
-      {/* desktop sidebar */}
-      <aside className="sticky top-0 hidden h-dvh w-56 shrink-0 flex-col gap-1 border-r-[2.5px] border-line p-4 md:flex">
-        <Link href="/" className="mb-4 flex items-center gap-2">
-          <span className="display text-3xl">Kakeibo</span>
-          <span aria-hidden className="jp text-xs text-pink">
+      {/* laptop sidebar */}
+      <aside className="sticky top-0 hidden h-dvh w-60 shrink-0 flex-col gap-1 border-r border-line bg-panel/70 p-4 backdrop-blur md:flex">
+        <Link href="/" className="mb-4 flex items-center gap-2 px-2">
+          <Mascot mood="happy" size={34} className="!animate-none" />
+          <span className="display text-xl">Kakeibo</span>
+          <span aria-hidden className="jp text-[10px] text-pink-ink">
             家計簿
           </span>
         </Link>
-        <button className="btn mb-3 bg-yellow py-2.5 text-on-accent" onClick={openQuickAdd}>
+        <button className="btn btn-primary mb-3 py-2.5" onClick={openQuickAdd}>
           <Plus size={18} strokeWidth={3} /> Quick add
         </button>
         {NAV.map((n) => (
@@ -148,82 +157,72 @@ function Frame({ children }: { children: ReactNode }) {
             key={n.href}
             href={n.href}
             className={cx(
-              "flex items-center gap-2.5 rounded-[5px] border-2 px-3 py-2 text-sm font-bold",
-              active(n.href) ? "border-line bg-ink text-paper" : "border-transparent hover:border-line/30",
+              "flex items-center gap-2.5 rounded-2xl px-3 py-2 text-sm font-bold transition-colors",
+              active(n.href) ? "bg-pink/14 text-pink-ink" : "text-muted hover:bg-sunk hover:text-ink",
             )}
           >
-            <n.icon size={17} strokeWidth={2.5} />
+            <n.icon size={17} strokeWidth={2.4} />
             {n.label}
             <span aria-hidden className="jp ml-auto text-[10px] opacity-60">
               {n.jp}
             </span>
           </Link>
         ))}
-        <div className="mt-auto flex items-center gap-2">
+        <div className="mt-auto flex items-center gap-2 px-1">
           <ThemeToggle />
-          <button className="btn bg-panel p-2" onClick={lock} aria-label="Lock">
-            <LogOut size={16} />
+          <button className="btn p-2" onClick={lock} aria-label="Lock">
+            <Lock size={16} />
           </button>
         </div>
       </aside>
 
       {offline && (
         <div className="pointer-events-none fixed inset-x-0 top-[calc(env(safe-area-inset-top)+6px)] z-40 flex justify-center">
-          <span className="rounded-full border-2 border-line bg-ink px-3 py-0.5 text-[11px] font-bold text-paper">
+          <span className="rounded-full bg-ink/85 px-3 py-1 text-[11px] font-bold text-panel shadow-lg">
             Offline{pending ? ` · ${pending} change${pending > 1 ? "s" : ""} will sync` : ""}
           </span>
         </div>
       )}
-      <main className="safe-top min-w-0 flex-1 px-4 pt-4 pb-[calc(96px+env(safe-area-inset-bottom))] md:px-8 md:pt-8 md:pb-10">
+      <main className="min-w-0 flex-1 px-4 pt-[calc(env(safe-area-inset-top)+1rem)] pb-[calc(96px+env(safe-area-inset-bottom))] md:px-8 md:pt-7 md:pb-10">
         {children}
       </main>
 
-      {/* mobile tab bar */}
-      <nav className="safe-bottom fixed inset-x-0 bottom-0 z-40 border-t-[2.5px] border-line bg-panel md:hidden">
+      {/* phone tab bar */}
+      <nav className="safe-bottom fixed inset-x-0 bottom-0 z-40 border-t border-line bg-panel/90 backdrop-blur md:hidden">
         <div className="mx-auto grid max-w-lg grid-cols-5 items-end">
           {NAV.filter((n) => MOBILE.includes(n.href))
             .slice(0, 2)
             .map((n) => (
-              <Tab key={n.href} href={n.href} label={n.label} jp={n.jp} Icon={n.icon} active={active(n.href)} />
+              <Tab key={n.href} href={n.href} label={n.label} Icon={n.icon} active={active(n.href)} />
             ))}
           <div className="flex justify-center">
             <button
               onClick={openQuickAdd}
               aria-label="Quick add expense"
-              className="btn -mt-6 h-16 w-16 rounded-full bg-yellow text-on-accent"
+              className="btn btn-primary -mt-6 h-15 w-15 border-4 border-panel"
             >
-              <Plus size={32} strokeWidth={3.5} />
+              <Plus size={28} strokeWidth={3} />
             </button>
           </div>
-          <Tab href="/plan" label="Plan" jp="計画" Icon={ListChecks} active={active("/plan")} />
-          <Tab href="/more" label="More" jp="他" Icon={Ellipsis} active={moreActive} />
+          <Tab href="/plan" label="Plan" Icon={ListChecks} active={active("/plan")} />
+          <Tab href="/more" label="More" Icon={Ellipsis} active={moreActive} />
         </div>
       </nav>
     </div>
   );
 }
 
-function Tab({
-  href,
-  label,
-  jp,
-  Icon,
-  active,
-}: {
-  href: string;
-  label: string;
-  jp: string;
-  Icon: typeof Home;
-  active: boolean;
-}) {
+function Tab({ href, label, Icon, active }: { href: string; label: string; Icon: typeof Home; active: boolean }) {
   return (
-    <Link href={href} className="flex flex-col items-center gap-0.5 py-2" aria-current={active ? "page" : undefined}>
-      <span className={cx("rounded-full px-3 py-1", active && "bg-ink text-paper")}>
-        <Icon size={20} strokeWidth={2.5} />
+    <Link
+      href={href}
+      className={cx("flex flex-col items-center gap-0.5 py-2", active ? "text-pink-ink" : "text-muted")}
+      aria-current={active ? "page" : undefined}
+    >
+      <span className={cx("rounded-full px-3.5 py-1", active && "bg-pink/14")}>
+        <Icon size={20} strokeWidth={2.4} />
       </span>
-      <span className="text-[11px] font-extrabold">
-        {label} <span aria-hidden className="jp text-[8px] text-muted">{jp}</span>
-      </span>
+      <span className="text-[11px] font-extrabold">{label}</span>
     </Link>
   );
 }
@@ -241,7 +240,7 @@ function MilestoneWatcher() {
     if (hit > meta.lastMilestone && hit > fired.current) {
       fired.current = hit;
       saveMeta({ lastMilestone: hit });
-      celebrate({ title: rupeesShort(hit), jp: "ドーン!", sub: `Power level up! Savings just passed ${rupeesShort(hit)}.` });
+      celebrate({ title: rupeesShort(hit), jp: "やった!", sub: `Power level up! Savings just passed ${rupeesShort(hit)}.` });
     }
   }, [hit, meta.lastMilestone, saveMeta, celebrate]);
   return null;

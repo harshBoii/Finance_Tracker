@@ -41,15 +41,15 @@ export function UIProvider({ children }: { children: ReactNode }) {
       {children}
       <QuickAdd open={quickOpen} onClose={() => setQuickOpen(false)} />
       {toastSpec && (
-        <div className="pointer-events-none fixed inset-x-0 bottom-[calc(88px+env(safe-area-inset-bottom))] z-[60] flex justify-center px-4 md:bottom-6">
+        <div className="pointer-events-none fixed inset-x-0 bottom-[calc(92px+env(safe-area-inset-bottom))] z-[60] flex justify-center px-4 md:bottom-6">
           <div
             role="status"
-            className="panel anim-pop pointer-events-auto flex max-w-md items-center gap-3 bg-ink px-4 py-2.5 text-sm font-bold text-paper"
+            className="anim-pop pointer-events-auto flex max-w-md items-center gap-3 rounded-full bg-[#2f2a44] px-4 py-2.5 text-sm font-bold text-white shadow-[0_10px_30px_-10px_rgba(47,42,68,0.6)]"
           >
             <span>{toastSpec.message}</span>
             {toastSpec.action && (
               <button
-                className="rounded-[3px] bg-yellow px-2 py-0.5 text-on-accent"
+                className="rounded-full bg-pink px-2.5 py-0.5 text-white"
                 onClick={() => {
                   toastSpec.action!.run();
                   setToast(null);
