@@ -3,8 +3,9 @@
 import { useState } from "react";
 import { useData } from "@/lib/data";
 import { daysInMonth, monthLabel, parseDay } from "@/lib/dates";
-import { monthsLeft, projection, remainingPayments } from "@/lib/finance";
+import { cashFlow, monthsLeft, projection, remainingPayments } from "@/lib/finance";
 import { rupees } from "@/lib/format";
+import { MoneyFlow } from "@/components/MoneyFlow";
 import { ProjectionChart } from "@/components/ProjectionChart";
 import { useToday } from "@/components/UIProvider";
 import { Money, PageTitle, Panel, cx } from "@/components/ui";
@@ -98,6 +99,8 @@ export default function ProjectionPage() {
           </p>
         </Panel>
       )}
+
+      <MoneyFlow items={cashFlow(plan, expenses, commitments, today)} className="lg:col-span-2 xl:col-span-3" />
       </div>
     </div>
   );

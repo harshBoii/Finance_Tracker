@@ -174,6 +174,66 @@ export function projection(plan: Plan, expenses: Expense[], commitments: Commitm
   });
 }
 
+export type FlowSource = "opening" | "salary" | "income" | "everyday" | "installment" | "bill" | "purchase";
+export type FlowStatus = "done" | "upcoming" | "estimate";
+
+export interface FlowItem {
+  id: string;
+  month: string;
+  date: string; // day key; month-level items use the 1st
+  dir: "in" | "out";
+  source: FlowSource;
+  label: string;
+  amount: number;
+  status: FlowStatus;
+}
+
+/** Every rupee in and out behind the projection; in − out over the period equals the final projected balance. */
+export function cashFlow(plan: Plan, expenses: Expense[], commitments: Commitment[], today: string): FlowItem[] {
+  const cur = monthOf(today);
+  const out: FlowItem[] = [];
+  for (const m of monthRange(plan.periodStart, plan.periodEnd)) {
+    for (const i of inflowsIn(plan, m)) {
+      const source: FlowSource =
+        i.label === "Opening cash" ? "opening" : i.label === "Salary (my share)" ? "salary" : "income";
+      out.push({
+        id: `in:${i.label}:${i.date}`,
+        month: m,
+        date: i.date,
+        dir: "in",
+        source,
+        label: source === "salary" ? "Salary (my share)" : i.label,
+        amount: i.amount,
+        status: i.date <= today ? "done" : "upcoming",
+      });
+    }
+    const spent = spentInMonth(expenses, m);
+    const cap = capFor(plan, m);
+    out.push({
+      id: `everyday:${m}`,
+      month: m,
+      date: `${m}-01`,
+      dir: "out",
+      source: "everyday",
+      label: m < cur ? "Everyday spending" : m === cur ? "Everyday spending (so far or cap)" : "Everyday budget",
+      amount: m < cur ? spent : m === cur ? Math.max(spent, cap) : cap,
+      status: m < cur ? "done" : "estimate",
+    });
+    for (const { c, paid } of dueIn(commitments, m))
+      out.push({
+        id: `c:${c.id}:${m}`,
+        month: m,
+        date: `${m}-01`,
+        dir: "out",
+        source: c.mode === "cash" ? "purchase" : c.mode === "bill" ? "bill" : "installment",
+        label: c.kind === "installment" && c.months.length > 1 ? `${c.name} (${c.months.indexOf(m) + 1}/${c.months.length})` : c.name,
+        amount: c.amount,
+        status: paid ? "done" : "upcoming",
+      });
+  }
+  return out;
+}
+
 /** Months from the current one to the end of the period, inclusive. */
 export function monthsLeft(plan: Plan, today: string): number {
   const cur = monthOf(today);
@@ -219,6 +279,50 @@ export function weekStats(plan: Plan, expenses: Expense[], day: string, today: s
   }));
   const daysLeft = today > end ? 0 : today < start ? 7 : Math.round((+parseDay(end) - +parseDay(today)) / 864e5) + 1;
   return { start, end, budget, spent, left: budget - spent, daysLeft, perCat };
+}
+
+export interface MonthWeek {
+  from: string; // clipped to the month
+  to: string;
+  days: number;
+  budget: number;
+  spent: number;
+  when: "past" | "current" | "future";
+  perCat: CatSpend[];
+}
+
+/** Monday-start weeks of a month, each given the weekly pool for the days that fall inside the month. */
+export function weeksInMonth(plan: Plan, expenses: Expense[], m: string, today: string): MonthWeek[] {
+  const first = `${m}-01`;
+  const last = dayInMonth(m, 31);
+  const dim = daysInMonth(m);
+  const budgets = budgetsFor(plan, m);
+  const weekly = plan.categories.filter((c) => !isMonthly(c));
+  const monthlyOnly = sum(plan.categories.filter(isMonthly).map((c) => budgets[c.id] ?? 0));
+  const pool = capFor(plan, m) - monthlyOnly;
+  const out: MonthWeek[] = [];
+  for (let s = weekOf(first).start; s <= last; s = addDays(s, 7)) {
+    const e = addDays(s, 6);
+    const from = s < first ? first : s;
+    const to = e > last ? last : e;
+    const days = Math.round((+parseDay(to) - +parseDay(from)) / 864e5) + 1;
+    const perCat = weekly.map((cat) => ({
+      cat,
+      budget: Math.round(((budgets[cat.id] ?? 0) * days) / dim),
+      spent: spentBetween(expenses, from, to, cat.id),
+    }));
+    out.push({
+      from,
+      to,
+      days,
+      // The last week takes the rounding remainder so the weeks add up to the pool exactly.
+      budget: to === last ? pool - sum(out.map((w) => w.budget)) : Math.round((pool * days) / dim),
+      spent: sum(perCat.map((c) => c.spent)),
+      when: e < today ? "past" : s > today ? "future" : "current",
+      perCat,
+    });
+  }
+  return out;
 }
 
 export interface MonthlyAllowance {

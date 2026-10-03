@@ -598,6 +598,7 @@
     "evidence": {}
   },
   {
+    "id": "mem:1791023929717",
     "kind": "decision",
     "content": "Light pastel anime theme by default; mascot is user-requested reindeer-doctor fan art.",
     "tags": [
@@ -607,8 +608,16 @@
       "src/app/globals.css",
       "src/components/Mascot.tsx"
     ],
+    "file_path": "src/app/globals.css",
+    "symbol_id": "",
+    "symbol_hash": "",
     "created_at": "2026-10-03T09:34:37.966314+00:00",
-    "created_epoch": 1791020077
+    "created_epoch": 1791020077,
+    "updated_at": "2026-10-03T09:34:37.966314+00:00",
+    "stale": false,
+    "stale_reason": "",
+    "observed_queries": [],
+    "evidence": {}
   },
   {
     "id": "mem:1791020077881",
@@ -662,7 +671,7 @@
     ],
     "file_path": "src/lib/seed.ts",
     "symbol_id": "src/lib/seed.ts::migratePlan",
-    "symbol_hash": "",
+    "symbol_hash": "1e10618e",
     "created_at": "2026-10-03T09:34:37.875748+00:00",
     "created_epoch": 1791020077,
     "updated_at": "2026-10-03T09:34:37.875771+00:00",
@@ -833,7 +842,7 @@
     ],
     "file_path": "src/lib/finance.ts",
     "symbol_id": "src/lib/finance.ts::weekStats",
-    "symbol_hash": "",
+    "symbol_hash": "649f8b81",
     "created_at": "2026-10-03T09:34:37.872188+00:00",
     "created_epoch": 1791020077,
     "updated_at": "2026-10-03T09:34:37.872242+00:00",
@@ -868,5 +877,255 @@
     "stale_reason": "",
     "observed_queries": [],
     "evidence": {}
+  },
+  {
+    "kind": "decision",
+    "content": "Month weeks get prorated pool share; cashFlow items sum exactly to projected balance.",
+    "tags": [
+      "budget",
+      "projection"
+    ],
+    "files": [
+      "src/lib/finance.ts",
+      "src/components/MoneyFlow.tsx",
+      "src/components/WeeklyBudgets.tsx"
+    ],
+    "created_at": "2026-10-03T10:48:10.511873+00:00",
+    "created_epoch": 1791024490
+  },
+  {
+    "id": "mem:1791024490428",
+    "kind": "edit_observation",
+    "content": "Edited during active session",
+    "tags": [
+      "weekly",
+      "budget",
+      "panel",
+      "month",
+      "money",
+      "flow",
+      "breakdown",
+      "sort"
+    ],
+    "files": [
+      "src/app/month/page.tsx"
+    ],
+    "file_path": "src/app/month/page.tsx",
+    "symbol_id": "",
+    "symbol_hash": "",
+    "created_at": "2026-10-03T10:48:10.428347+00:00",
+    "created_epoch": 1791024490,
+    "updated_at": "2026-10-03T10:48:10.428386+00:00",
+    "stale": false,
+    "stale_reason": "",
+    "observed_queries": [],
+    "evidence": {
+      "source": "graph_register_edit",
+      "recent_action_kinds": [],
+      "recent_queries": [],
+      "edited": true
+    }
+  },
+  {
+    "id": "mem:1791024490422",
+    "kind": "edit_observation",
+    "content": "Edited during active session",
+    "tags": [
+      "weekly",
+      "budget",
+      "panel",
+      "month",
+      "money",
+      "flow",
+      "breakdown",
+      "sort"
+    ],
+    "files": [
+      "src/components/WeeklyBudgets.tsx"
+    ],
+    "file_path": "src/components/WeeklyBudgets.tsx",
+    "symbol_id": "",
+    "symbol_hash": "",
+    "created_at": "2026-10-03T10:48:10.422485+00:00",
+    "created_epoch": 1791024490,
+    "updated_at": "2026-10-03T10:48:10.422523+00:00",
+    "stale": false,
+    "stale_reason": "",
+    "observed_queries": [],
+    "evidence": {
+      "source": "graph_register_edit",
+      "recent_action_kinds": [],
+      "recent_queries": [],
+      "edited": true
+    }
+  },
+  {
+    "id": "mem:1791024490411",
+    "kind": "edit_observation",
+    "content": "Edited during active session",
+    "tags": [
+      "weekly",
+      "budget",
+      "panel",
+      "month",
+      "money",
+      "flow",
+      "breakdown",
+      "sort"
+    ],
+    "files": [
+      "src/lib/finance.ts::cashFlow"
+    ],
+    "file_path": "src/lib/finance.ts",
+    "symbol_id": "src/lib/finance.ts::cashFlow",
+    "symbol_hash": "",
+    "created_at": "2026-10-03T10:48:10.410940+00:00",
+    "created_epoch": 1791024490,
+    "updated_at": "2026-10-03T10:48:10.410965+00:00",
+    "stale": false,
+    "stale_reason": "",
+    "observed_queries": [],
+    "evidence": {
+      "source": "graph_register_edit",
+      "recent_action_kinds": [],
+      "recent_queries": [],
+      "edited": true
+    }
+  },
+  {
+    "id": "mem:1791024490399",
+    "kind": "decision",
+    "content": "Weekly budget panel on /month; Money flow breakdown with sort/filter/group on /projection",
+    "tags": [
+      "weekly",
+      "budget",
+      "panel",
+      "month",
+      "money",
+      "flow",
+      "breakdown",
+      "sort"
+    ],
+    "files": [
+      "src/lib/finance.ts::cashFlow",
+      "src/lib/finance.ts::weeksInMonth",
+      "src/components/WeeklyBudgets.tsx",
+      "src/components/MoneyFlow.tsx",
+      "src/app/month/page.tsx",
+      "src/app/projection/page.tsx"
+    ],
+    "file_path": "src/lib/finance.ts",
+    "symbol_id": "src/lib/finance.ts::cashFlow",
+    "symbol_hash": "",
+    "created_at": "2026-10-03T10:48:10.400961+00:00",
+    "created_epoch": 1791024490,
+    "updated_at": "2026-10-03T10:48:10.401023+00:00",
+    "stale": false,
+    "stale_reason": "",
+    "observed_queries": [],
+    "evidence": {
+      "window_sec": 120,
+      "recent_action_kinds": [],
+      "recent_queries": []
+    }
+  },
+  {
+    "id": "mem:1791024490414",
+    "kind": "edit_observation",
+    "content": "Edited during active session",
+    "tags": [
+      "weekly",
+      "budget",
+      "panel",
+      "month",
+      "money",
+      "flow",
+      "breakdown",
+      "sort"
+    ],
+    "files": [
+      "src/lib/finance.ts::weeksInMonth"
+    ],
+    "file_path": "src/lib/finance.ts",
+    "symbol_id": "src/lib/finance.ts::weeksInMonth",
+    "symbol_hash": "",
+    "created_at": "2026-10-03T10:48:10.414453+00:00",
+    "created_epoch": 1791024490,
+    "updated_at": "2026-10-03T10:48:10.414529+00:00",
+    "stale": false,
+    "stale_reason": "",
+    "observed_queries": [],
+    "evidence": {
+      "source": "graph_register_edit",
+      "recent_action_kinds": [],
+      "recent_queries": [],
+      "edited": true
+    }
+  },
+  {
+    "id": "mem:1791024490425",
+    "kind": "edit_observation",
+    "content": "Edited during active session",
+    "tags": [
+      "weekly",
+      "budget",
+      "panel",
+      "month",
+      "money",
+      "flow",
+      "breakdown",
+      "sort"
+    ],
+    "files": [
+      "src/components/MoneyFlow.tsx"
+    ],
+    "file_path": "src/components/MoneyFlow.tsx",
+    "symbol_id": "",
+    "symbol_hash": "",
+    "created_at": "2026-10-03T10:48:10.425538+00:00",
+    "created_epoch": 1791024490,
+    "updated_at": "2026-10-03T10:48:10.425557+00:00",
+    "stale": false,
+    "stale_reason": "",
+    "observed_queries": [],
+    "evidence": {
+      "source": "graph_register_edit",
+      "recent_action_kinds": [],
+      "recent_queries": [],
+      "edited": true
+    }
+  },
+  {
+    "id": "mem:1791024490430",
+    "kind": "edit_observation",
+    "content": "Edited during active session",
+    "tags": [
+      "weekly",
+      "budget",
+      "panel",
+      "month",
+      "money",
+      "flow",
+      "breakdown",
+      "sort"
+    ],
+    "files": [
+      "src/app/projection/page.tsx"
+    ],
+    "file_path": "src/app/projection/page.tsx",
+    "symbol_id": "",
+    "symbol_hash": "",
+    "created_at": "2026-10-03T10:48:10.430477+00:00",
+    "created_epoch": 1791024490,
+    "updated_at": "2026-10-03T10:48:10.430510+00:00",
+    "stale": false,
+    "stale_reason": "",
+    "observed_queries": [],
+    "evidence": {
+      "source": "graph_register_edit",
+      "recent_action_kinds": [],
+      "recent_queries": [],
+      "edited": true
+    }
   }
 ]

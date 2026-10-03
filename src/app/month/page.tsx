@@ -9,6 +9,7 @@ import { rupees } from "@/lib/format";
 import { DueRow } from "@/components/DueRow";
 import { ExpenseList } from "@/components/ExpenseList";
 import { MonthPicker, defaultMonth } from "@/components/MonthPicker";
+import { WeeklyBudgets } from "@/components/WeeklyBudgets";
 import { useToday } from "@/components/UIProvider";
 import { Bar, Empty, Money, PageTitle, Panel, cx } from "@/components/ui";
 
@@ -142,6 +143,8 @@ export default function MonthPage() {
           })}
         </ul>
       </Panel>
+
+      <WeeklyBudgets key={month} month={month} today={today} />
 
       <Panel title="Expenses" jp="支出" right={<span className="text-xs font-bold text-muted">{items.length} logged</span>}>
         <ExpenseList items={items} empty="Nothing logged this month." />

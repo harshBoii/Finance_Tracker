@@ -104,6 +104,48 @@
     {
       "id": "src/components/ui.tsx",
       "type": "file"
+    },
+    {
+      "id": "query:month page weekly budget section projection graph breakdown",
+      "type": "query",
+      "meta": {
+        "text": "month page weekly budget section; projection page graph breakdown of income and expenses with sort and filter"
+      }
+    },
+    {
+      "id": "src/app/month/page.tsx",
+      "type": "file"
+    },
+    {
+      "id": "src/app/projection/page.tsx",
+      "type": "file"
+    },
+    {
+      "id": "src/app/wishlist/page.tsx",
+      "type": "file"
+    },
+    {
+      "id": "action:edit:1791024490",
+      "type": "action",
+      "meta": {
+        "summary": "Weekly budget panel on /month; Money flow breakdown with sort/filter/group on /projection"
+      }
+    },
+    {
+      "id": "src/lib/finance.ts::cashFlow",
+      "type": "file"
+    },
+    {
+      "id": "src/lib/finance.ts::weeksInMonth",
+      "type": "file"
+    },
+    {
+      "id": "src/components/WeeklyBudgets.tsx",
+      "type": "file"
+    },
+    {
+      "id": "src/components/MoneyFlow.tsx",
+      "type": "file"
     }
   ],
   "edges": [
@@ -244,6 +286,72 @@
       "to": "src/components/ui.tsx",
       "rel": "edited",
       "ts": 1791020077
+    },
+    {
+      "from": "query:month page weekly budget section projection graph breakdown",
+      "to": "src/app/month/page.tsx",
+      "rel": "retrieved",
+      "ts": 1791023929
+    },
+    {
+      "from": "query:month page weekly budget section projection graph breakdown",
+      "to": "src/app/projection/page.tsx",
+      "rel": "retrieved",
+      "ts": 1791023929
+    },
+    {
+      "from": "query:month page weekly budget section projection graph breakdown",
+      "to": "src/components/MonthlyAllowanceCard.tsx",
+      "rel": "retrieved",
+      "ts": 1791023929
+    },
+    {
+      "from": "query:month page weekly budget section projection graph breakdown",
+      "to": "src/app/wishlist/page.tsx",
+      "rel": "retrieved",
+      "ts": 1791023929
+    },
+    {
+      "from": "query:month page weekly budget section projection graph breakdown",
+      "to": "src/lib/finance.ts",
+      "rel": "retrieved",
+      "ts": 1791023929
+    },
+    {
+      "from": "action:edit:1791024490",
+      "to": "src/lib/finance.ts::cashFlow",
+      "rel": "edited",
+      "ts": 1791024490
+    },
+    {
+      "from": "action:edit:1791024490",
+      "to": "src/lib/finance.ts::weeksInMonth",
+      "rel": "edited",
+      "ts": 1791024490
+    },
+    {
+      "from": "action:edit:1791024490",
+      "to": "src/components/WeeklyBudgets.tsx",
+      "rel": "edited",
+      "ts": 1791024490
+    },
+    {
+      "from": "action:edit:1791024490",
+      "to": "src/components/MoneyFlow.tsx",
+      "rel": "edited",
+      "ts": 1791024490
+    },
+    {
+      "from": "action:edit:1791024490",
+      "to": "src/app/month/page.tsx",
+      "rel": "edited",
+      "ts": 1791024490
+    },
+    {
+      "from": "action:edit:1791024490",
+      "to": "src/app/projection/page.tsx",
+      "rel": "edited",
+      "ts": 1791024490
     }
   ],
   "files": {
@@ -346,6 +454,36 @@
       "last_action": "edited",
       "last_ts": "2026-10-03T09:34:37.845775+00:00",
       "edited_count": 1
+    },
+    "src/lib/finance.ts::cashFlow": {
+      "last_action": "edited",
+      "last_ts": "2026-10-03T10:48:10.397449+00:00",
+      "edited_count": 1
+    },
+    "src/lib/finance.ts::weeksInMonth": {
+      "last_action": "edited",
+      "last_ts": "2026-10-03T10:48:10.397507+00:00",
+      "edited_count": 1
+    },
+    "src/components/WeeklyBudgets.tsx": {
+      "last_action": "edited",
+      "last_ts": "2026-10-03T10:48:10.397577+00:00",
+      "edited_count": 1
+    },
+    "src/components/MoneyFlow.tsx": {
+      "last_action": "edited",
+      "last_ts": "2026-10-03T10:48:10.397598+00:00",
+      "edited_count": 1
+    },
+    "src/app/month/page.tsx": {
+      "last_action": "edited",
+      "last_ts": "2026-10-03T10:48:10.397672+00:00",
+      "edited_count": 1
+    },
+    "src/app/projection/page.tsx": {
+      "last_action": "edited",
+      "last_ts": "2026-10-03T10:48:10.397695+00:00",
+      "edited_count": 1
     }
   },
   "actions": [
@@ -366,6 +504,29 @@
     },
     {
       "ts": 1791020077,
+      "kind": "register_edit",
+      "payload": {
+        "kind": "register_edit"
+      }
+    },
+    {
+      "ts": 1791023929,
+      "kind": "retrieve",
+      "payload": {
+        "kind": "retrieve",
+        "query": "month page weekly budget section; projection page graph breakdown of income and expenses with sort and filter"
+      }
+    },
+    {
+      "ts": 1791023929,
+      "kind": "continue_retrieve",
+      "payload": {
+        "kind": "continue_retrieve",
+        "query": "month page weekly budget section; projection page graph breakdown of income and expenses with sort and filter"
+      }
+    },
+    {
+      "ts": 1791024490,
       "kind": "register_edit",
       "payload": {
         "kind": "register_edit"
@@ -406,6 +567,19 @@
         "src/lib/seed.ts::migratePlan",
         "src/components/Shell.tsx",
         "src/components/ui.tsx"
+      ],
+      "scope": "global"
+    },
+    {
+      "ts": 1791024490,
+      "summary": "Weekly budget panel on /month; Money flow breakdown with sort/filter/group on /projection",
+      "files": [
+        "src/lib/finance.ts::cashFlow",
+        "src/lib/finance.ts::weeksInMonth",
+        "src/components/WeeklyBudgets.tsx",
+        "src/components/MoneyFlow.tsx",
+        "src/app/month/page.tsx",
+        "src/app/projection/page.tsx"
       ],
       "scope": "global"
     }
